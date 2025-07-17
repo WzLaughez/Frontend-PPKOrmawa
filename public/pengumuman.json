@@ -1,0 +1,60 @@
+{
+    "pengumuman": [
+      {
+        "id": "1",
+        "title": "Pendaftaran Anggota Baru 2024",
+        "date": "15 Januari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "2", 
+        "title": "Workshop Teknologi Terbaru",
+        "date": "20 Februari 2024",
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      },
+      {
+        "id": "3",
+        "title": "Hackathon HMIF 2024",
+        "date": "10 Maret 2024", 
+        "imageUrl": "../../public/hmn4.jpg",
+        "content": "Himpunan Mahasiswa Informatika (HMIF) UNTAN membuka pendaftaran anggota baru untuk periode 2024-2025. Terbuka untuk mahasiswa aktif Teknik Informatika yang berminat mengembangkan kemampuan dan berorganisasi."
+      }
+    ]
+  }
