@@ -25,9 +25,8 @@ export default function NavBar() {
     `text-md font-medium transition-colors duration-300 ${isActive ? 'text-Blue font-semibold' : 'text-gray-700 hover:text-Blue'}`
 
   return (
-    <header className={`fixed w-full top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white'}`}>
+    <header className={`fixed w-full border-b-2 top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white'}`}>
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
         {/* Kiri: Logo dan Burger (mobile) */}
         <div className="flex items-center gap-3">
           {/* Burger icon hanya muncul di mobile */}
@@ -48,10 +47,10 @@ export default function NavBar() {
         {/* Tengah: Navigasi */}
         <div className="hidden lg:flex space-x-8">
           <NavLink to="/" className={linkClasses}>Home</NavLink>
-          <NavLink to="/program" className={linkClasses}>Program</NavLink>
-          <NavLink to="/edukasi" className={linkClasses}>Edukasi</NavLink>
           <NavLink to="/about" className={linkClasses}>About Us</NavLink>
+          <NavLink to="/edukasi" className={linkClasses}>Edukasi</NavLink>
           <NavLink to="/galeri" className={linkClasses}>Galeri</NavLink>
+          <NavLink to="/tanya" className={linkClasses}>Tanya</NavLink>
         </div>
 
         {/* Kanan: Tombol daftar */}
@@ -98,10 +97,10 @@ export default function NavBar() {
                   <NavLink to="/galeri" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
                     Galeri
                   </NavLink>
+                  <NavLink to="/comment" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                    Tanya
+                  </NavLink>
 
-                  {/* <button className="w-full mt-4 bg-Blue text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-900 transition">
-                    DAFTAR SEKARANG
-                  </button> */}
                 </div>
               </div>
             </DialogPanel>

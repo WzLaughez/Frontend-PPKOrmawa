@@ -41,8 +41,8 @@ function AppRoutes() {
       <Route path="/galeri/:divisi_id/:galeri_id" element={<Foto key={location.pathname} />} />
       <Route path="/karya" element={<Plan key={location.pathname} />} />
       <Route path="/karya/:id" element={<KaryaDetail key={location.pathname} />} />
-      <Route path="/pengumuman" element={<Pengumuman key={location.pathname} />} />
-      <Route path="/pengumuman/:id" element={<PengumumanDetail key={location.pathname} />} />
+      <Route path="/edukasi" element={<Pengumuman key={location.pathname} />} />
+      <Route path="/edukasi/:id" element={<PengumumanDetail key={location.pathname} />} />
     </Routes>
   )
 }

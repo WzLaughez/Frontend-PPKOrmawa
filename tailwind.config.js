@@ -20,11 +20,15 @@ export default {
         SweetDaisy: '#f3f0da', // Add your custom color here
         Sage: '#1d1e3f', // Add your custom color here
         Peach: '#f3f0da', // Add your custom color here
-        Blue:'#005689'
+        Blue:'#005689',
+        WhitePPK: '#F0F7FD',
+        Yellow: '#F6C667',
+        Aqua: '#007cb8',
       },
       fontFamily:{
         // poppins:['Poppins'],
         sans: ['Raleway', 'sans-serif'], // Primary font
+        dmsans: ['DM Sans', 'sans-serif'], 
         serif: ['Merriweather', 'Georgia', 'serif'], // Secondary font
         mono: ['Courier New', 'monospace'], // Monospace font
       }

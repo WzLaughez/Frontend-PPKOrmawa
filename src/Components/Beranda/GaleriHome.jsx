@@ -42,53 +42,24 @@ const GaleriHome = () => {
     <div data-aos="fade-up" className="relative w-full">
       
 
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-20 animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
       {/* Header */}
       <header className="w-full">
         
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-4 flex justify-center text-center">
-          <div className="mb-2">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-Peach via-purple-300 to-Peach text-transparent bg-clip-text leading-tight">
-            Galeri
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
-          <p className="text-gray-300 mt-6 text-lg">
-            Kumpulan foto-foto kegiatan BEM FK Universitas Negeri Malang
-          </p>
+        <div className="relative z-10 pt-10 " data-aos="fade-down">
+        <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
+          <div className="inline-block">
+            <h2 className="text-1xl sm:text-2xl md:text-3xl font-bold text-Sage">
+              <span className="text-Blue">
+                Galeri PRIMA HEALTH
+              </span>
+            </h2>
+          </div>
         </div>
-        </div>
+      </div>
       </header>
 
       {/* Main Content */}
       <div className="relative px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[-2]">
-  {[...Array(10)].map((_, i) => (
-    <div
-      key={i}
-      className="absolute w-full h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-10 animate-neon-line"
-      style={{
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 3}s`,
-        // optional override
-        animationDuration: `${3 + Math.random() * 2}s`
-      }}
-    />
-  ))}
-</div>
         <div className="max-w-6xl mx-auto">
           {loading ? (
   <div className="text-center py-10">
@@ -100,18 +71,18 @@ const GaleriHome = () => {
 )}
 
         </div>
-      </div>
-      <div className="text-center mb-12" >
-          <button className="bg-Peach  px-8 py-3 rounded-lg hover:bg-Peach/80 transition-colors duration-200 font-medium">
+      <div className="text-center pt-4" >
           <Link to="/galeri">
-          <div className="flex items-center space-x-2">
-            <span>View All Gallery</span>
+          <button className="bg-Blue  px-8 py-3 rounded-lg hover:bg-Blue/80 transition-colors duration-200 font-medium">
+          <div className="flex items-center text-WhitePPK space-x-2">
+            <span>Semua Galeri</span>
             <FaArrowRight className="" />
           </div>
-          </Link>
           </button>
+          </Link>
           
         </div>
+      </div>
     </div>
   );
 };

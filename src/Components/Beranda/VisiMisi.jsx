@@ -12,7 +12,7 @@ const VisiMisi = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen p-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+    <div className="relative min-h-screen p-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 bg-WhitePPK overflow-hidden">
       {/* Enhanced Background Decorative Elements */}
 
 
@@ -27,7 +27,7 @@ const VisiMisi = () => {
               </span>
             </h2>
             <div className="h-1 w-32 bg-gradient-to-r from-Sage to-Sage mx-auto rounded-full m-3"></div>
-            <p className="text-lg text-Blue max-w-3xl font-semibold mx-auto leading-relaxed">
+            <p className="text-lg text-gray-800 max-w-3xl font-semibold mx-auto leading-relaxed">
               Digitalisasi Terpadu Desa Pandansari Lor
             </p>
           </div>
@@ -39,11 +39,11 @@ const VisiMisi = () => {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
     
     {/* Image */}
-    <div className="w-full h-auto rounded-xl overflow-hidden shadow-lg">
+    <div className="w-full h-auto  overflow-hidden shadow-lg">
       <img 
-        src="/images/latar-belakang.png" 
+        src="/download.jpg" 
         alt="Gedung Desa Pandansari Lor" 
-        className="w-full h-auto object-cover rounded-xl"
+        className="w-full h-auto object-cover "
       />
     </div>
 
@@ -55,8 +55,8 @@ const VisiMisi = () => {
         Di Indonesia, 73% kematian disebabkan oleh PTM (KEMENKES, 2023), angka ini bahkan lebih tinggi dari rata-rata global (71%).
         Hipertensi dan diabetes menjadi perhatian utama karena prevalensinya yang tinggi serta komplikasi serius seperti stroke, penyakit jantung, dan gagal ginjal.
       </p>
-      <button className="mt-6 inline-flex items-center px-6 py-2 bg-[#005B8E] text-white text-sm font-semibold rounded shadow hover:bg-[#004f7a] transition-all">
-        MORE →
+      <button className="mt-6 inline-flex items-center px-6 py-2 bg-[#005B8E] text-white text-sm   shadow hover:bg-[#004f7a] transition-all">
+        Selengkapnya →
       </button>
     </div>
   </div>

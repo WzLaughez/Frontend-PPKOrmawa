@@ -34,7 +34,7 @@ const Pengumuman = () => {
       <div className="flex flex-wrap justify-center gap-6">
   {pengumuman.map((item) => (
     <Link 
-      to={`/pengumuman/${item.id}`} 
+      to={`/edukasi/${item.id}`} 
       key={item.id} 
       className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(25%-1.5rem)] bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
     >
