@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home, Droplet, Activity, Calendar, User, Activity as Bmi, X, LogOut } from "lucide-react";
+import { Home, Droplet, Activity, Calendar, User, Activity as Bmi, X, LogOut, Image, BookOpen, Database } from "lucide-react";
 import { useAuth } from "../../../AuthContext";
 
 const navItemClass = ({ isActive }) =>
-  `flex items-center gap-3 px-4 py-2 rounded-md transition hover:bg-gray-200 dark:hover:bg-gray-700 
+  `flex items-center gap-3 px-4 py-2 transition hover:bg-gray-200 dark:hover:bg-gray-700 
    ${isActive ? "bg-gray-200 dark:bg-gray-700 font-semibold" : ""}`;
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -16,7 +16,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   };
   return (
     <div className={`fixed md:relative top-0 left-0 h-full bg-white dark:bg-gray-900 shadow-md z-50 w-64
-      transform transition-transform duration-300
+      transform transition-transform duration-300 border-r border-Blue
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
       
       {/* Tombol close hanya muncul di mobile */}
@@ -29,25 +29,28 @@ const Sidebar = ({ isOpen, onClose }) => {
         </button>
       )}
 
-      <div className="p-6 text-2xl font-bold text-blue-700">PrimaHealth</div>
+      <div className="p-6 text-2xl font-bold text-Blue">PrimaHealth</div>
       
-      <nav className="flex flex-col gap-2">
-        <NavLink to="/user" end className={navItemClass}>
-          <Home size={20} /> Overview
+      <nav className="flex flex-col gap-2 font-dmsans">
+        <NavLink to="/admin" end className={navItemClass}>
+          <Home size={20} /> Dashboard
         </NavLink>
-        <NavLink to="/user/blood-sugar" className={navItemClass}>
-          <Droplet size={20} /> Blood Sugar
+        <NavLink to="/admin/data" className={navItemClass}>
+          <Database size={20} /> Data Kesehatan
         </NavLink>
-        <NavLink to="/user/hipertensi" className={navItemClass}>
-          <Activity size={20} /> Hipertensi
+        <NavLink to="/admin/blood-sugar" className={navItemClass}>
+          <User size={20} /> Pengguna
         </NavLink>
-        <NavLink to="/user/bmi" className={navItemClass}>
-          <Bmi size={20} /> BMI
+        <NavLink to="/admin/hipertensi" className={navItemClass}>
+          <Image size={20} /> Galeri
         </NavLink>
-        <NavLink to="/user/profile" className={navItemClass}>
-          <User size={20} /> User Profile
+        <NavLink to="/admin/bmi" className={navItemClass}>
+          <BookOpen size={20} /> Edukasi
         </NavLink>
-        <NavLink to="/user/panduan" className={navItemClass}>
+        <NavLink to="/admin/profile" className={navItemClass}>
+          <User size={20} /> Tanya Jawab
+        </NavLink>
+        <NavLink to="/admin/panduan" className={navItemClass}>
           <Calendar size={20} /> Panduan
         </NavLink>
       </nav>

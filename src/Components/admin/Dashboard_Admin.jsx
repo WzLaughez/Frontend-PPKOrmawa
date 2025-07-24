@@ -1,212 +1,166 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-// import { Card, CardContent } from '@/components/ui/card';
-// import { Card, CardContent } from '../../components/Card';
-import Card from './layout_user/Card'; // Pastikan path ini sesuai dengan struktur folder Anda
-import { Line } from 'react-chartjs-2';
+import React, { useEffect, useState } from "react";
+import axiosInstance from "../../lib/axios";
+import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  LineElement,
-  PointElement,
   CategoryScale,
   LinearScale,
+  BarElement,
+  ArcElement,
   Tooltip,
   Legend,
-} from 'chart.js';
-ChartJS.register(
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-);
-export default function Dashboard_user() {
-  const [data, setData] = useState([]);
+} from "chart.js";
+import Card from "./layout_admin/Card_admin";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
+
+const Dashboard_Admin = () => {
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
-  useEffect(() => {
+
+  // Ambil auth dari localStorage
   const storedData = localStorage.getItem("auth");
   const auth = storedData ? JSON.parse(storedData) : null;
 
-  if (auth && auth.user && auth.token) {
-    const userId = auth.user.id;
-    const year = new Date().getFullYear();
-
-    const headers = {
-      Authorization: `Bearer ${auth.token}`,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axiosInstance.get("/admin/dashboard", {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        });
+        setData(res.data);
+      } catch (error) {
+        console.error("Gagal mengambil data dashboard:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    Promise.all([
-      axios.get(`http://localhost:3001/api/kesehatan/byyear?year=${year}&user_id=${userId}`, { headers }),
-      axios.get(`http://localhost:3001/api/users/${userId}`, { headers }),
-    ])
-      .then(([kesehatanRes, userRes]) => {
-        setData(kesehatanRes.data);   // Data kesehatan tahunan
-        setUserData(userRes.data);        // Tambahkan useState untuk user
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Gagal mengambil data:", err);
-        setLoading(false);
-      });
-  } else {
-    console.warn("Auth tidak ditemukan di localStorage.");
-    setLoading(false);
-  }
-}, []);
+    fetchData();
+  }, []);
 
+  if (loading || !data) return <div className="p-4">Loading...</div>;
 
-  const latest = data.length > 0 ? data[data.length - 1] : {};
-
-  const extractData = (key) => data.map((item) => ({
-    x: item.tanggal_pemeriksaan,
-    y: item[key],
-  }));
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-    },
+  const barChartData = {
+    labels: [
+      "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+      "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+    ],
+    datasets: [
+      {
+        label: "Jumlah Pemeriksaan",
+        backgroundColor: "#005689",
+        borderRadius: 0,
+        data: data.historyPeriksa
+      }
+    ]
   };
 
+  const barChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        ticks: { stepSize: 1, precision: 0 }
+      }
+    },
+    plugins: {
+      legend: { display: false }
+    }
+  };
+
+  const pieChart = (dataset) => ({
+    labels: Object.keys(dataset),
+    datasets: [
+      {
+        data: Object.values(dataset),
+        backgroundColor: [
+          "#026878ff", "#006e12ff", "#f6fa15ff", "#d35105ff", "#ff0e0eff"
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
+
   return (
-  <div className="p-4 bg-white rounded-lg shadow max-w-screen-xl mx-auto">
-    <h2 className="text-lg md:text-xl font-semibold mb-4">
-      Riwayat Pemeriksaan Kesehatan
-    </h2>
+    <div className="bg-gray-100 p-6 min-h-screen w-full space-y-4 shadow-md">
 
-    {loading ? (
-      <p>Memuat data...</p>
-    ) : data.length === 0 ? (
-      <p className="text-gray-500">Belum ada data pemeriksaan.</p>
-    ) : (
-      <>
-        {/* Summary Cards & Welcome Section */}
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
-          {/* Welcome Section */}
-          <div>
+      <h1 className="text-2xl font-semibold mb-4">Dashboard Admin Kesehatan</h1>
 
-          <div className="bg-white rounded-lg shadow p-4 col-span-1 sm:col-span-2 lg:col-span-1">
-            <h3 className="text-lg font-semibold mb-2">
-              Selamat Datang, {userData ? userData.nama : 'Pengguna'}
-            </h3>
-            <p className="text-sm text-gray-600">NIK: {userData?.nik || '-'}</p>
-            <p className="text-sm text-gray-600">Email: {userData?.email || '-'}</p>
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card title="Total Users" value={data.totalUsers} />
+        <Card title="Total Periksa" value={data.totalPeriksa} />
+        <Card title="Belum Periksa" value={data.totalBelumPeriksa} />
+        <Card title="Risiko Tinggi" value={data.jumlahRisikoTinggi} />
+      </div>
+
+      {/* Grid for Bar + Pie Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Bar Chart Box */}
+        <div className="bg-WhitePPK p-4 shadow">
+          <h2 className="text-lg font-semibold mb-2">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
+          <div className="h-48">
+            <Bar data={barChartData} options={barChartOptions} />
           </div>
+          <h2 className="text-lg font-semibold mb-2">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
+          <div className="h-48">
+            <Bar data={barChartData} options={barChartOptions} />
           </div>
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 col-span-1 sm:col-span-2 lg:col-span-3 justify-between">
+        </div>
 
-          <Card
-            icon="/Group 31.svg"
-            title="Tekanan Darah"
-            value={`${latest?.tekanan_sistolik || '-'} / ${latest?.tekanan_diastolik || '-'}`}
-            unit="mmHg"
-            status="Normal"
-            statusColor={{ bg: "bg-blue-100", text: "text-blue-700" }}
-            grafik="/Group 11.svg"
-          />
-
-          <Card
-            icon="/Group 35.svg"
-            title="Gula Darah"
-            value={latest?.gd_puasa || '-'}
-            unit="mg/dL"
-            status="Normal"
-            statusColor={{ bg: "bg-yellow-100", text: "text-yellow-700" }}
-            grafik="/Group 30.svg"
-          />
-
-          <Card
-            icon="/icon-bmi.svg"
-            title="BMI"
-            value={latest?.bmi || '-'}
-            unit=""
-            status="Sehat"
-            statusColor={{ bg: "bg-purple-100", text: "text-purple-700" }}
-            grafik="/grafik-bmi.svg"
-            />
+        {/* Pie Charts Box */}
+        <div className="bg-white p-4 shadow">
+          <h2 className="text-lg font-semibold mb-4 text-center">Status Kesehatan Bulan Ini</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <div className="w-1/2 sm:w-1/3 flex justify-center">
+              <SmallPie title="Distribusi IMT" chartData={pieChart(data.statusBMI)} />
             </div>
-        </div>
-
-        {/* Charts Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Tekanan Darah Chart */}
-          <div className="bg-white rounded-xl shadow p-5 overflow-x-auto">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Tren Tekanan Darah</h4>
-            <Line
-              data={{
-                labels: data.map(item => item.tanggal_pemeriksaan),
-                datasets: [
-                  {
-                    label: 'Sistolik',
-                    data: extractData('tekanan_sistolik'),
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                  },
-                  {
-                    label: 'Diastolik',
-                    data: extractData('tekanan_diastolik'),
-                    borderColor: '#ef4444',
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                  },
-                ],
-              }}
-              options={chartOptions}
-            />
-          </div>
-
-          {/* Gula Darah Chart */}
-          <div className="bg-white rounded-xl shadow p-5 overflow-x-auto">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Tren Gula Darah</h4>
-            <Line
-              data={{
-                labels: data.map(item => item.tanggal_pemeriksaan),
-                datasets: [
-                  {
-                    label: 'Gula Darah',
-                    data: extractData('gd_puasa'),
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                  },
-                ],
-              }}
-              options={chartOptions}
-            />
-          </div>
-
-          {/* BMI Chart */}
-          <div className="bg-white rounded-xl shadow p-5 overflow-x-auto">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Tren BMI</h4>
-            <Line
-              data={{
-                labels: data.map(item => item.tanggal_pemeriksaan),
-                datasets: [
-                  {
-                    label: 'BMI',
-                    data: extractData('tinggi_badan'),
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                  },
-                ],
-              }}
-              options={chartOptions}
-            />
+            <div className="w-1/2 sm:w-1/3 flex justify-center">
+              <SmallPie title="Distribusi Gula Darah" chartData={pieChart(data.statusGula)} />
+            </div>
+            <div className="w-full sm:w-1/3 flex justify-center">
+              <SmallPie title="Distribusi Tekanan Darah" chartData={pieChart(data.statusTekanan)} />
+            </div>
           </div>
         </div>
-      </>
-    )}
+
+      </div>
+
+      {/* <div className="bg-white p-4 rounded-xl shadow">
+        <h2 className="text-lg font-semibold mb-2">Detail Risiko Tinggi</h2>
+        <ul className="list-disc ml-5">
+          {Object.entries(data.risikoTinggiDetail).map(([key, val]) => (
+            <li key={key}>
+              {key}: {val}
+            </li>
+          ))}
+        </ul>
+      </div> */}
+    </div>
+  );
+};
+
+const SmallPie = ({ title, chartData }) => (
+  <div className="flex flex-col items-center text-center">
+    <p className="text-sm font-dmsans mb-1">{title}</p>
+    <div className="w-32 h-32">
+      <Doughnut data={chartData} options={{ plugins: { legend: { display: false }}}} />
+    </div>
+    <div className="flex flex-wrap justify-center gap-1 mt-2 text-xs">
+      {chartData.labels.map((label, i) => (
+        <span key={i} className="flex items-center gap-1 text-gray-600 font-dmsans ml-1">
+          <span 
+            className="w-3 h-3 inline-block rounded-full" 
+            style={{ backgroundColor: chartData.datasets[0].backgroundColor[i] }}
+          ></span>
+          {label}
+        </span>
+      ))}
+    </div>
   </div>
 );
 
-}
+
+
+export default Dashboard_Admin;
