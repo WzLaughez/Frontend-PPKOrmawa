@@ -55,9 +55,11 @@ export default function NavBar() {
 
         {/* Kanan: Tombol daftar */}
         <div className="">
+          <NavLink to="/login" className="hidden lg:inline-block text-sm font-medium text-Blue hover:text-blue-900 transition">
           <button className="bg-Blue text-white px-8 py-2 text-sm font-medium hover:bg-blue-900 transition">
             Login
           </button>
+          </NavLink>
         </div>
 
         {/* Mobile Drawer */}
