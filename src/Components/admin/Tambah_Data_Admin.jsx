@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import axiosInstance from "../../lib/axios";
 import { NavLink } from "react-router";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function TambahDataKesehatan({ initialData = null, mode = "create" }) {
   const storedData = localStorage.getItem("auth");
   const auth = storedData ? JSON.parse(storedData) : null;
   const location = useLocation();
-   const existingData = location.state?.editData;
+  const existingData = location.state?.editData;
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [formEvent, setFormEvent] = useState(null); // untuk menyimpan event submit
+
+  const navigate = useNavigate(); // untuk redirect
+  const [successMessage, setSuccessMessage] = useState(null); // notifikasi
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [formData, setFormData] = useState(initialData || {
@@ -57,19 +62,24 @@ export default function TambahDataKesehatan({ initialData = null, mode = "create
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedUser) return alert("Pilih user terlebih dahulu");
-    try {
-        if (mode === "edit") {
-        await axiosInstance.put(
-          `/kesehatan/${initialData.id}`,
-          { user_id: selectedUser.value, ...formData },
-          { headers: { Authorization: `Bearer ${auth?.token}` } }
-        );
-        alert("Data berhasil diperbarui");
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (!selectedUser) return alert("Pilih user terlebih dahulu");
+  setFormEvent(e);
+  setShowConfirmModal(true);
+};
+const handleConfirmSubmit = async () => {
+  setShowConfirmModal(false);
+  try {
+    if (mode === "edit") {
+      await axiosInstance.put(
+        `/kesehatan/${initialData.id}`,
+        { user_id: selectedUser.value, ...formData },
+        { headers: { Authorization: `Bearer ${auth?.token}` } }
+      );
+      setSuccessMessage("Data berhasil diperbarui");
     } else {
-      const res = await axiosInstance.post(
+      await axiosInstance.post(
         "/kesehatan",
         {
           user_id: selectedUser.value,
@@ -79,12 +89,18 @@ export default function TambahDataKesehatan({ initialData = null, mode = "create
           headers: { Authorization: `Bearer ${auth?.token}` },
         }
       );
-      alert("Data berhasil ditambahkan");
+      setSuccessMessage("Data berhasil ditambahkan");
     }
-    } catch (error) {
-      console.error("Gagal menambah data:", error);
-    }
-  };
+    setTimeout(() => {
+      navigate("/admin/data");
+    }, 1500);
+  } catch (error) {
+    console.error("Gagal menambah data:", error);
+  } finally {
+    setFormEvent(null); // reset event
+  }
+};
+
 
   const options = users.map((user) => ({
     value: user.id,
@@ -358,7 +374,7 @@ export default function TambahDataKesehatan({ initialData = null, mode = "create
       <div className="pt-4">
         <button 
           type="submit" 
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2"
+          className="w-full bg-Blue hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4  shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
@@ -366,9 +382,39 @@ export default function TambahDataKesehatan({ initialData = null, mode = "create
           <span>{mode === "edit" ? "Simpan Perubahan" : "Tambah Data"}</span>
         </button>
       </div>
+      {showConfirmModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 shadow-lg max-w-sm w-full text-center space-y-4">
+      <h2 className="text-lg font-semibold">Konfirmasi</h2>
+      <p>Apakah kamu yakin ingin {mode === "edit" ? "menyimpan perubahan?" : "menambahkan data?"}</p>
+      <div className="flex justify-center space-x-4">
+        <button
+          onClick={handleConfirmSubmit}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 "
+        >
+          Ya
+        </button>
+        <button
+          onClick={() => setShowConfirmModal(false)}
+          className="bg-gray-300 hover:bg-gray-400 px-4 py-2 "
+        >
+          Batal
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   </div>
 </form>
+
+{successMessage && (
+  <div className="fixed top-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow z-50">
+    {successMessage}
+  </div>
+)}
     </div>
   );
 }
+

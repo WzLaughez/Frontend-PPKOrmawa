@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowRight } from "react-icons/fa";
-import supabase from '../admin/utils/supabaseClient';
+import axiosInstance from '../../lib/axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import VideoProfil from './VideoProfil';
 const ArticleCard = ({ id, title, description, image }) => {
   return (
         <Link
-          to={`/pengumuman/${id}`}
+          to={`/edukasi/${id}`}
           // className="ml-2 group-hover:translate-x-1 transition-transform duration-200"
         >
     <div className="bg-white  shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -28,16 +28,13 @@ const ArticleCard = ({ id, title, description, image }) => {
 
 const ArticleSection = () => {
   const [pengumuman, setPengumuman] = useState([]);
-
+  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     AOS.init({ duration: 1000 });
 
     const fetchPengumuman = async () => {
-      const { data, error } = await supabase
-        .from('pengumuman')
-        .select('*')
-        .order('date', { ascending: false })
-        .limit(3);
+      const { data, error } = await axiosInstance
+        .get('/edukasi/limit3');
 
       if (error) console.error(error);
       else setPengumuman(data);
@@ -72,8 +69,8 @@ const ArticleSection = () => {
             key={item.id}
             id={item.id}
             title={item.title}
-            description={item.content}
-            image={item.image_url}
+            description={item.description}
+            image={`${API}${item.image_url}`}
           />
         ))}
       </div>

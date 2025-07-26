@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import supabase from './admin/utils/supabaseClient'
 import { Link } from 'react-router'
+import axiosInstance from '../lib/axios'
 const Pengumuman = () => {
   const [pengumuman, setPengumuman] = useState([])
   const [loading, setLoading] = useState(true);
+  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     const fetchPengumuman = async () => {
-      const { data, error } = await supabase
-        .from('pengumuman')
-        .select('*')
+      const { data, error } = await axiosInstance.get('/edukasi')
       if (error) console.error(error)
       else {
-        console.log(data)
         setPengumuman(data)
         setLoading(false);}
     }
@@ -36,12 +34,12 @@ const Pengumuman = () => {
     <Link 
       to={`/edukasi/${item.id}`} 
       key={item.id} 
-      className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(25%-1.5rem)] bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+      className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(25%-1.5rem)] bg-white shadow-md  overflow-hidden transition-transform transform hover:scale-105"
     >
       <img 
-        src={item.image_url} 
+        src={`${API}${item.image_url}`} 
         alt={item.title} 
-        className="w-full h-36 object-cover"
+        className="w-full h-48 object-cover"
       />
       <div className="p-5 flex flex-col flex-grow">
         <div className="text-gray-500 text-sm mb-2">{item.date}</div>
@@ -50,7 +48,7 @@ const Pengumuman = () => {
         <h3 className="text-xl font-semibold text-center text-gray-800 mb-3">{item.title}</h3>
         
         <p className="text-gray-600 mb-4 flex-grow">
-          {`${item.content.substring(0, 100)}...`}
+          {`${item.description.substring(0, 100)}...`}
         </p>
         </div>
       </div>

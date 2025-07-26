@@ -11,6 +11,10 @@ import TopbarAdmin from './admin/layout_admin/TopAdmin';
 import Dashboard_Admin from './admin/Dashboard_Admin';
 import Data_Admin from './admin/Data_Admin';
 import Tambah_Data_Admin from './admin/Tambah_Data_Admin';
+import Data_User_Admin from './admin/Data_User_Admin';
+import TambahUserAdmin from './admin/UserAdmin/TambahUserAdmin';
+import EditUserAdmin from './admin/UserAdmin/EditUserAdmin';
+import Edukasi_Admin from './admin/Edukasi_Admin';
 function EditWrapper() {
   const location = useLocation();
   const data = location.state;
@@ -39,6 +43,10 @@ const Admin = () => {
               <Route path="/data" element={<Data_Admin />} />
               <Route path="/data/tambah" element={<Tambah_Data_Admin />} />
               <Route path="/data/edit" element={<EditWrapper />} />
+              <Route path="/pengguna/tambah" element={<TambahUserAdmin />} />
+              <Route path="/pengguna/edit/:id" element={<EditUserAdmin />} />
+              <Route path="/pengguna" element={<Data_User_Admin />} />
+              <Route path="/edukasi" element={<Edukasi_Admin />} />
               <Route path="/pengumuman" element={<AdminPengumuman />} />
               <Route path="/galeri" element={<AdminGaleri />} />
               <Route path="/galeri/:galeriDivisiId" element={<GaleriDetail />} />

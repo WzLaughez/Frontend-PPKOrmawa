@@ -38,13 +38,13 @@ const Sidebar = ({ isOpen, onClose }) => {
         <NavLink to="/admin/data" className={navItemClass}>
           <Database size={20} /> Data Kesehatan
         </NavLink>
-        <NavLink to="/admin/blood-sugar" className={navItemClass}>
+        <NavLink to="/admin/pengguna" className={navItemClass}>
           <User size={20} /> Pengguna
         </NavLink>
         <NavLink to="/admin/hipertensi" className={navItemClass}>
           <Image size={20} /> Galeri
         </NavLink>
-        <NavLink to="/admin/bmi" className={navItemClass}>
+        <NavLink to="/admin/edukasi" className={navItemClass}>
           <BookOpen size={20} /> Edukasi
         </NavLink>
         <NavLink to="/admin/profile" className={navItemClass}>

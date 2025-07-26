@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../lib/axios";
 import { useNavigate, NavLink } from "react-router-dom";
-const Data_Admin = () => {
+const Data_User_Admin = () => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
-  const [dataKesehatan, setDataKesehatan] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
   const [tahun, setTahun] = useState(currentYear);
   const [bulan, setBulan] = useState(null);
 
+  // Ambil auth dari localStorage
+  const storedData = localStorage.getItem("auth");
+  const auth = storedData ? JSON.parse(storedData) : null;
   const fetchData = async () => {
     try {
-      const endpoint = bulan === null
-        ? `/kesehatan/bymonth?year=${tahun}`
-        : `/kesehatan/bymonth?year=${tahun}&month=${bulan}`;
-      const response = await axiosInstance.get(endpoint);
-      setDataKesehatan(response.data);
+       const res = await axiosInstance.get("/users", {
+          headers: { Authorization: `Bearer ${auth?.token}` },
+        });
+        setDataUser(res.data);
     } catch (error) {
       console.error("Gagal mengambil data:", error);
     }
@@ -48,9 +50,9 @@ const Data_Admin = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = dataKesehatan.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = dataUser.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(dataKesehatan.length / itemsPerPage);
+  const totalPages = Math.ceil(dataUser.length / itemsPerPage);
 
 
   return (
@@ -98,58 +100,57 @@ const Data_Admin = () => {
     </div>
 
     {/* Tombol Tambah Data */}
-    <NavLink to="/admin/data/tambah">
+    <NavLink to="/admin/pengguna/tambah">
         <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 shadow">
-        + Tambah Data
+        + Tambah User
         </button>
     </NavLink>
     </div>
 
 
       <div className="overflow-x-auto">
-        <table className="min-w-full border font-dmsans text-sm">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2 ">No</th>
-              <th className="p-2 ">Tanggal</th>
-              <th className="p-2 ">Nama</th>
-              <th className="p-2 ">Tinggi Badan (cm)</th>
-              <th className="p-2 ">Berat Badan (Kg)</th>
-              <th className="p-2 ">BMI</th>
-              <th className="p-2 ">Tipe Gula Darah</th>
-              <th className="p-2 ">Gula Darah (mg/dL)</th>
-              <th className="p-2 ">Status Gula</th>
-              <th className="p-2 ">Tekanan Darah (mmhg)</th>
-              <th className="p-2 ">Status Tekanan</th>
-              <th className="p-2 ">Catatan</th>
-              <th className="p-2 ">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((item,index) => (
-              <tr key={item.id}>
-                <td className="p-2 text-center">{indexOfFirstItem + index + 1}</td>
-                <td className="p-2 text-center">{item.tanggal_pemeriksaan}</td>
-                <td className="p-2 text-center">{item.user?.nama || "-"}</td>
-                <td className="p-2 text-center">{item.tinggi_badan}</td>
-                <td className="p-2 text-center">{item.berat_badan} </td>
-                <td className="p-2 text-center">{item.status_bmi || "-"}</td>
-                <td className="p-2 text-center">{item.tipe_gula_darah || "-"}</td>
-                <td className="p-2 text-center">{`${item.gula_darah}` || "-"}</td>
-                <td className="p-2 text-center">{item.status_gula_darah || "-"}</td>
-                <td className="p-2 text-center">
-                  {item.tekanan_sistolik}/{item.tekanan_diastolik}
-                </td>
-                <td className="p-2 text-center">{item.status_tekanan_darah || "-"}</td>
-                <td className="p-2 text-center">{item.catatan || "-"}</td>
-                <td className="p-2 text-center">
+       <table className="min-w-full border font-dmsans text-sm">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="p-2">No</th>
+            <th className="p-2">NIK</th>
+            <th className="p-2">Nama</th>
+            <th className="p-2">Tempat, Tgl Lahir</th>
+            <th className="p-2">Agama</th>
+            <th className="p-2">Jenis Kelamin</th>
+            <th className="p-2">RW</th>
+            <th className="p-2">RT</th>
+            <th className="p-2">No HP</th>
+            <th className="p-2">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataUser.map((user, index) => (
+            <tr key={user.id} className="border-t">
+              <td className="p-2 text-center">{index + 1}</td>
+              <td className="p-2">{user.nik}</td>
+              <td className="p-2">{user.nama}</td>
+              <td className="p-2">
+                {user.tempat_lahir}, {user.tanggal_lahir}
+              </td>
+              <td className="p-2 text-center">
+                {user.agama || "-"}
+              </td>
+              <td className="p-2 text-center">
+                {user.jenis_kelamin || "-"}
+              </td>
+              <td className="p-2">{user.rw}</td>
+              <td className="p-2">{user.rt}</td>
+              <td className="p-2">{user.no_hp}</td>
+              <td className="p-2 text-center">
                     <div className="flex gap-2">
+                      <NavLink to={`/admin/pengguna/edit/${user.id}`}>
                         <button
-                        onClick={() => navigate("/admin/data/edit", { state: item })}
                         className="text-blue-600 hover:underline"
                         >
                         Edit
                         </button>
+                      </NavLink>
                         <button
                         onClick={() => handleDelete(item.id)}
                         className="text-red-600 hover:underline ml-2"
@@ -158,11 +159,10 @@ const Data_Admin = () => {
                         </button>
                     </div>
                 </td>
-
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
         <div className="flex justify-center items-center mt-4">
   <button
     disabled={currentPage === 1}
@@ -198,4 +198,4 @@ const Data_Admin = () => {
   );
 };
 
-export default Data_Admin;
+export default Data_User_Admin;
