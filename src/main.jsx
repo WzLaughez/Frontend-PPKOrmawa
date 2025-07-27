@@ -9,8 +9,10 @@ import { AuthProvider } from './AuthContext';
 import RequireAuth from './RequireAuth';
 import Login from './Login';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+import "react-toastify/dist/ReactToastify.css";
 
 root.render(
+  
   <AuthProvider>
     <Router>
       <Routes>
@@ -36,4 +38,5 @@ root.render(
       </Routes>
     </Router>
   </AuthProvider>
+  
 );

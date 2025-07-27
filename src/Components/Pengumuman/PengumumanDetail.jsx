@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import TitlePengumuman from './TitlePengumuman';
-import supabase from '../admin/utils/supabaseClient';
 import axiosInstance from '../../lib/axios';
 
 function PengumumanDetail() {

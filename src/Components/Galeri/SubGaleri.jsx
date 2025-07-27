@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import supabase from '../admin/utils/supabaseClient';
 import { Link, useParams } from 'react-router-dom';
-
+import axiosInstance from '../../lib/axios';
 const SubGaleri = () => {
   
   const { divisi_id } = useParams();
   const [subGaleri, setSubGaleri] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     const fetchSubGaleri = async () => {
-      const { data, error } = await supabase
-        .from('galeri_divisi')
-        .select(`
-          id,
-          deskripsi,
-          image_url
-        `)
-        .eq('divisi_id', divisi_id); // image_url opsional, tambahkan jika ada
-
-      if (error) console.error(error);
+      const { data, error } = await axiosInstance.get('/subgaleri/'+divisi_id)
+      if (error) console.error(error)
       else {
-        setSubGaleri(data);
-        setLoading(false);
-      }
+        setSubGaleri(data)
+        setLoading(false);}
     }
-
     fetchSubGaleri();
   }, []);
 
@@ -50,20 +40,16 @@ const SubGaleri = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {subGaleri.map((item) => (
-          <Link
-            key={item.id}
-            to={`/galeri/${divisi_id}/${item.id}`}
-            className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
-          >
+         <div>
             <img
-              src={item.image_url || 'https://via.placeholder.com/300x150?text=No+Image'}
+              src={`${API}${item.image_url}` || 'https://via.placeholder.com/300x150?text=No+Image'}
               alt={item.deskripsi}
               className="w-full h-36 object-cover"
             />
             <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold text-gray-800">{item.deskripsi}</h3>
+              <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

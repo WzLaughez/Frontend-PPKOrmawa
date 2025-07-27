@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import AdminPengumuman from './admin/AdminPengumuman';
 import { Routes, Route, useLocation  } from 'react-router';
-import AdminGaleri from './admin/AdminGaleri';
 import AdminPengurus from './admin/AdminPengurus';
-import GaleriDetail from './admin/AdminGaleriDetail';
-import AdminKarya from './admin/AdminKarya';
 import SidebarAdmin from './admin/layout_admin/SideAdmin';
 import TopbarAdmin from './admin/layout_admin/TopAdmin';
 import Dashboard_Admin from './admin/Dashboard_Admin';
@@ -15,6 +11,11 @@ import Data_User_Admin from './admin/Data_User_Admin';
 import TambahUserAdmin from './admin/UserAdmin/TambahUserAdmin';
 import EditUserAdmin from './admin/UserAdmin/EditUserAdmin';
 import Edukasi_Admin from './admin/Edukasi_Admin';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Galeri_Admin from './admin/Galeri_Admin';
+import GaleriAdminDetail from './admin/galeri/GaleriAdminDetail';
+
 function EditWrapper() {
   const location = useLocation();
   const data = location.state;
@@ -25,6 +26,7 @@ const Admin = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover draggable />
     <div className="flex h-screen overflow-hidden">
           <SidebarAdmin isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
             {/* Overlay untuk mobile */}
@@ -47,11 +49,9 @@ const Admin = () => {
               <Route path="/pengguna/edit/:id" element={<EditUserAdmin />} />
               <Route path="/pengguna" element={<Data_User_Admin />} />
               <Route path="/edukasi" element={<Edukasi_Admin />} />
-              <Route path="/pengumuman" element={<AdminPengumuman />} />
-              <Route path="/galeri" element={<AdminGaleri />} />
-              <Route path="/galeri/:galeriDivisiId" element={<GaleriDetail />} />
+              <Route path="/galeri" element={<Galeri_Admin />} />
+              <Route path="/galeri/:id" element={<GaleriAdminDetail />} />
               <Route path="/pengurus" element={<AdminPengurus />} />
-              <Route path="/karya" element={<AdminKarya />} />
             </Routes>
               </main>
           </div>

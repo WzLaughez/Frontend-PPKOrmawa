@@ -3,7 +3,7 @@ import Select from "react-select";
 import axiosInstance from "../../lib/axios";
 import { NavLink } from "react-router";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 export default function TambahDataKesehatan({ initialData = null, mode = "create" }) {
   const storedData = localStorage.getItem("auth");
   const auth = storedData ? JSON.parse(storedData) : null;
@@ -89,7 +89,8 @@ const handleConfirmSubmit = async () => {
           headers: { Authorization: `Bearer ${auth?.token}` },
         }
       );
-      setSuccessMessage("Data berhasil ditambahkan");
+      toast.success("Data berhasil ditambahkan");
+      // setSuccessMessage("Data berhasil ditambahkan");
     }
     setTimeout(() => {
       navigate("/admin/data");
@@ -117,7 +118,7 @@ const handleConfirmSubmit = async () => {
     <NavLink to="/admin/data">
     <button
         type="button"
-        className="mb-2 px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded shadow"
+        className="mb-2 px-4 py-2 text-sm text-white bg-Blue hover:bg-Aqua  shadow"
     >
         Kembali
     </button>

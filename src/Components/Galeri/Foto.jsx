@@ -8,23 +8,14 @@ const Foto = () => {
   const [Foto, setFoto] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     const fetchFoto = async () => {
-      const { data, error } = await supabase
-        .from('subgaleri')
-        .select(`
-          id,
-          nama_kegiatan,
-          tanggal_kegiatan,
-          image_url
-        `)
-        .eq('galeri_id', galeri_id); // image_url opsional, tambahkan jika ada
-
-      if (error) console.error(error);
+      const { data, error } = await axiosInstance.get('/galeri')
+      if (error) console.error(error)
       else {
-        setFoto(data);
-        setLoading(false);
-      }
+        setFoto(data)
+        setLoading(false);}
     }
 
     fetchFoto();

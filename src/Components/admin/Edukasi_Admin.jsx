@@ -16,7 +16,6 @@ const Edukasi_Admin = () => {
     try {
       const res = await axiosInstance.get('/edukasi', { headers });
       setEdukasiList(res.data);
-      console.log('Edukasi List:', res.data);
     } catch (error) {
       console.error('Gagal mengambil data edukasi:', error);
     }
@@ -60,34 +59,42 @@ const Edukasi_Admin = () => {
       </button>
       </div>
 
-      <table className="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <thead className="bg-gray-100">
-            <tr>
-            <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">Gambar</th>
-            <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">Judul</th>
-            <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">Deskripsi</th>
-            <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">Aksi</th>
+      <table className="min-w-full  bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <thead className="bg-gray-100 items-center">
+            <tr className=''>
+            <th className=" p-2  text-sm font-semibold text-gray-700">Gambar</th>
+            <th className=" p-2  text-sm font-semibold text-gray-700">Judul</th>
+            <th className=" p-2  text-sm font-semibold text-gray-700">Deskripsi</th>
+            <th className=" p-2  text-sm font-semibold text-gray-700">Aksi</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className="">
             {edukasiList.map((item) => (
-            <tr key={item.id} className="border-t border-gray-200">
-                <td className="px-4 py-3">
+            <tr key={item.id} className="border-t border-gray-200 ">
+                <td className="p-2 ">
                 <img
                     src={`${API}${item.image_url}`}
                     alt={item.title}
                     className="w-20 h-14 object-cover rounded"
                 />
                 </td>
-                <td className="px-4 py-3 text-sm font-medium">{item.title}</td>
-                <td className="px-4 py-3 text-sm text-gray-600 line-clamp-2 max-w-xs">{item.description}</td>
-                <td className="px-4 py-3">
-                <button
-                    onClick={() => handleEdit(item)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                    Edit
-                </button>
+                <td className="p-2  text-sm font-medium">{item.title}</td>
+                <td className="p-2  text-sm text-gray-600 max-w-xs">{item.description}</td>
+                <td className="p-2 ">
+                <div className="flex gap-2 justify-center">
+                        <button
+                        onClick={() => handleEdit(item)}
+                        className="text-blue-600 hover:underline"
+                        >
+                        Edit
+                        </button>
+                        <button
+                        onClick={() => handleDeleteClick(item.id)}
+                        className="text-red-600 hover:underline"
+                        >
+                        Hapus
+                        </button>
+                    </div>
                 </td>
             </tr>
             ))}

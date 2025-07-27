@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import HeroPage from '../layouts/HeroPage';
-import supabase from './admin/utils/supabaseClient';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../lib/axios';
 
 const Galeri = () => {
   const [galeri, setGaleri] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     const fetchGaleri = async () => {
-      const { data, error } = await supabase
-        .from('divisi')
-        .select(`
-          id,
-          kode_divisi,
-          ketua_foto_url
-        `)
-        .order ('id', { ascending: true }); 
-
-      if (error) console.error(error);
+      const { data, error } = await axiosInstance.get('/galeri')
+      if (error) console.error(error)
       else {
-        setGaleri(data);
-        setLoading(false);
-      }
+        setGaleri(data)
+        setLoading(false);}
     };
 
     fetchGaleri();
@@ -48,12 +38,12 @@ const Galeri = () => {
             className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
           >
             <img
-              src={item.ketua_foto_url || 'https://via.placeholder.com/300x150?text=No+Image'}
+              src={`${API}${item.image_url}` || 'https://via.placeholder.com/300x150?text=No+Image'}
               alt={item.kode_divisi}
               className="w-full h-fit object-cover"
             />
             <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold text-gray-800">{item.kode_divisi}</h3>
+              <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
               {/* <p className="text-sm text-gray-500">{item.deskripsi}</p> */}
             </div>
           </Link>

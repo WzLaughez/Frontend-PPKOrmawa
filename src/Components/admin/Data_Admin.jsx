@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../lib/axios";
 import { useNavigate, NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Data_Admin = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
@@ -27,6 +31,23 @@ const Data_Admin = () => {
     }
   }, [tahun, bulan]);
 
+  // Delete function
+const handleDeleteClick = (id) => {
+  setSelectedId(id);
+  setShowModal(true);
+};
+const confirmDelete = async () => {
+  try {
+    await axiosInstance.delete(`/kesehatan/${selectedId}`);
+    toast.success("Data berhasil dihapus");
+    setDataKesehatan((prev) => prev.filter((item) => item.id !== selectedId));
+  } catch (error) {
+    console.error("Gagal menghapus data:", error);
+  } finally {
+    setShowModal(false);
+    setSelectedId(null);
+  }
+};
   const daftarTahun = [currentYear, currentYear - 1, currentYear - 2];
   const daftarBulan = [
     { label: "Semua Bulan", value: null },
@@ -54,7 +75,7 @@ const Data_Admin = () => {
 
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gray-100">
       <h1 className="text-2xl font-semibold mb-4">Data Pemeriksaan Kesehatan</h1>
 
       <div className="flex justify-between items-end mb-6">
@@ -99,7 +120,7 @@ const Data_Admin = () => {
 
     {/* Tombol Tambah Data */}
     <NavLink to="/admin/data/tambah">
-        <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 shadow">
+        <button className="px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow">
         + Tambah Data
         </button>
     </NavLink>
@@ -127,7 +148,7 @@ const Data_Admin = () => {
           </thead>
           <tbody>
             {currentItems.map((item,index) => (
-              <tr key={item.id}>
+              <tr key={item.id} className="bg-WhitePPK hover:bg-gray-100">
                 <td className="p-2 text-center">{indexOfFirstItem + index + 1}</td>
                 <td className="p-2 text-center">{item.tanggal_pemeriksaan}</td>
                 <td className="p-2 text-center">{item.user?.nama || "-"}</td>
@@ -151,8 +172,8 @@ const Data_Admin = () => {
                         Edit
                         </button>
                         <button
-                        onClick={() => handleDelete(item.id)}
-                        className="text-red-600 hover:underline ml-2"
+                        onClick={() => handleDeleteClick(item.id)}
+                        className="text-red-600 hover:underline"
                         >
                         Hapus
                         </button>
@@ -192,6 +213,28 @@ const Data_Admin = () => {
     Next
   </button>
 </div>
+{showModal && (
+  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Hapus</h2>
+      <p className="text-sm text-gray-600">Apakah Anda yakin ingin menghapus data ini?</p>
+      <div className="flex justify-end gap-2 mt-6">
+        <button
+          onClick={() => setShowModal(false)}
+          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+        >
+          Batal
+        </button>
+        <button
+          onClick={confirmDelete}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       </div>
     </div>
