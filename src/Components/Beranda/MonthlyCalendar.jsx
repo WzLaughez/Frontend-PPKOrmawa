@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import axiosInstance from "../../lib/axios";
+
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -10,6 +12,7 @@ const MonthlyCalendar = () => {
 
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [events, setEvents] = useState([]);
 useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -17,28 +20,17 @@ useEffect(() => {
     });
   }, []);
   // 📅 Events with title and description
-  const events = [
-    {
-      title: "Posyandu Desa A",
-      description: "Pemeriksaan balita dan ibu hamil.",
-      date: "2025-06-30"
-    },
-    {
-      title: "Posyandu Desa B",
-      description: "Skrining kesehatan lansia.",
-      date: "2025-07-02"
-    },
-    {
-      title: "Posyandu Desa C",
-      description: "Pemberian vitamin A untuk anak.",
-      date: "2025-07-17"
-    },
-    {
-      title: "Posyandu Desa D",
-      description: "Vaksinasi dan penyuluhan gizi.",
-      date: "2025-07-24"
-    },
-  ];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await axiosInstance.get("/kegiatan");
+        setEvents(res.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   const startOfMonth = currentDate.startOf("month");
   const endOfMonth = currentDate.endOf("month");

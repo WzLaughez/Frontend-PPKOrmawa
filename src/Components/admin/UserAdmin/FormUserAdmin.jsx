@@ -7,6 +7,7 @@ const FormUserAdmin = ({ initialData = {}, onSubmit }) => {
     nama: initialData.nama || "",
     tempat_lahir: initialData.tempat_lahir || "",
     tanggal_lahir: initialData.tanggal_lahir || "",
+    alamat: initialData.alamat || "",
     jenis_kelamin: initialData.jenis_kelamin || "",
     agama: initialData.agama || "",
     no_hp: initialData.no_hp || "",
@@ -46,6 +47,7 @@ const FormUserAdmin = ({ initialData = {}, onSubmit }) => {
     ]}
   />
   <Input label="Agama" name="agama" value={formData.agama} onChange={handleChange} />
+  <Input label="Alamat" name="alamat" value={formData.alamat} onChange={handleChange} />
   <Input label="No HP" name="no_hp" value={formData.no_hp} onChange={handleChange} />
   <Input label="RT" name="rt" value={formData.rt} onChange={handleChange} />
   <Input label="RW" name="rw" value={formData.rw} onChange={handleChange} />

@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../lib/axios";
 import { useNavigate, NavLink } from "react-router-dom";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { FaDownload, FaPlus, FaRegCreditCard } from "react-icons/fa";
+import { toast } from "react-toastify";
 const Data_User_Admin = () => {
+  
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
@@ -29,6 +36,26 @@ const Data_User_Admin = () => {
     }
   }, [tahun, bulan]);
 
+  const handleDeleteClick = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+    const confirmDelete = async () => {
+    try {
+      await axiosInstance.delete(`/users/${selectedId}`, {
+        headers: { Authorization: `Bearer ${auth?.token}` },
+      });
+      toast.success("Data berhasil dihapus");
+      setDataUser((prev) => prev.filter((item) => item.id !== selectedId));
+    } catch (error) {
+      toast.error("Gagal menghapus data");
+      console.error("Gagal menghapus data:", error);
+    } finally {
+      setShowModal(false);
+      setSelectedId(null);
+    }
+  };
+  
   const daftarTahun = [currentYear, currentYear - 1, currentYear - 2];
   const daftarBulan = [
     { label: "Semua Bulan", value: null },
@@ -54,7 +81,41 @@ const Data_User_Admin = () => {
 
   const totalPages = Math.ceil(dataUser.length / itemsPerPage);
 
+const handleDownloadUserExcel = () => {
+  if (dataUser.length === 0) {
+    toast.warn("Data pengguna kosong.");
+    return;
+  }
 
+  const dataToExport = dataUser.map((user, index) => ({
+    No: index + 1,
+    NIK: user.nik || "-",
+    Nama: user.nama || "-",
+    "Tempat Lahir": user.tempat_lahir || "-",
+    "Tanggal Lahir": user.tanggal_lahir || "-",
+    "Jenis Kelamin": user.jenis_kelamin || "-",
+    Agama: user.agama || "-",
+    "No HP": user.no_hp || "-",
+    RT: user.rt || "-",
+    RW: user.rw || "-",
+    Alamat: user.alamat || "-",
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Data User");
+
+  const excelBuffer = XLSX.write(workbook, {
+    bookType: "xlsx",
+    type: "array"
+  });
+
+  const file = new Blob([excelBuffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  });
+
+  saveAs(file, "data_pengguna.xlsx");
+};
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">Data Pemeriksaan Kesehatan</h1>
@@ -99,13 +160,26 @@ const Data_User_Admin = () => {
     </div>
     </div>
 
-    {/* Tombol Tambah Data */}
-    <NavLink to="/admin/pengguna/tambah">
-        <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 shadow">
-        + Tambah User
-        </button>
-    </NavLink>
-    </div>
+    <div className="flex gap-2">
+    
+          <button
+            onClick={handleDownloadUserExcel}
+            className="px-4 py-2 bg-green-700 text-white text-sm hover:bg-green-600 shadow"
+          >
+            <FaDownload className="inline mr-2" />
+            Download Data
+          </button>
+    
+        {/* Tombol Tambah Data */}
+          <NavLink to="/admin/pengguna/tambah">
+              <button className="flex items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow">
+                <FaPlus className="inline mr-2" />
+              Tambah Pengguna
+              </button>
+          </NavLink>
+          </div>
+        </div>
+    
 
 
       <div className="overflow-x-auto">
@@ -152,7 +226,7 @@ const Data_User_Admin = () => {
                         </button>
                       </NavLink>
                         <button
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDeleteClick(user.id)}
                         className="text-red-600 hover:underline ml-2"
                         >
                         Hapus
@@ -192,7 +266,28 @@ const Data_User_Admin = () => {
     Next
   </button>
 </div>
-
+{showModal && (
+  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Hapus</h2>
+      <p className="text-sm text-gray-600">Apakah Anda yakin ingin menghapus data ini?</p>
+      <div className="flex justify-end gap-2 mt-6">
+        <button
+          onClick={() => setShowModal(false)}
+          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+        >
+          Batal
+        </button>
+        <button
+          onClick={confirmDelete}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );

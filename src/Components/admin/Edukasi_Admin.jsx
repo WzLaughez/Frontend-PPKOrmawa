@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../../lib/axios';
 import EdukasiModal from './edukasi/EdukasiModal';
-
+import { toast } from 'react-toastify';
+import { FaPlus } from 'react-icons/fa';
 const Edukasi_Admin = () => {
   const [edukasiList, setEdukasiList] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [editingData, setEditingData] = useState(null);
   const API = import.meta.env.VITE_API_BASE_URL;
   const storedData = localStorage.getItem("auth");
@@ -40,26 +43,45 @@ const Edukasi_Admin = () => {
 
     if (editingData) {
       await axiosInstance.put(`/edukasi/${editingData.id}`, formData);
+      toast.success("Edukasi berhasil diperbarui");
     } else {
       await axiosInstance.post("/edukasi", formData);
+      toast.success("Edukasi berhasil ditambahkan");
     }
-
+    
     setShowModal(false);
-    // refresh data
+    fetchEdukasi();
   };
+  
+  const handleDeleteClick = (id) => {
+    setSelectedId(id);
+    setShowDeleteModal(true);
+  };
+  const confirmDelete = async () => {
+    try {
+      await axiosInstance.delete(`/edukasi/${selectedId}`);
+      toast.success("Data berhasil dihapus");
+      setEdukasiList((prev) => prev.filter((item) => item.id !== selectedId));
+    } catch (error) {
+      console.error("Gagal menghapus data:", error);
+    } finally {
+      setShowDeleteModal(false);
+      setSelectedId(null);
+    }
+  };
+
   return (
     <div className="p-6  mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Manajemen Edukasi</h2>
-        <button
-        onClick={handleOpenAdd}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-      >
-        Tambah Edukasi
-      </button>
       </div>
-
-      <table className="min-w-full  bg-white border border-gray-200 rounded-xl overflow-hidden">
+      <div className="mb-4 flex justify-end">
+        <button className="flex items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow" onClick={handleOpenAdd}>
+                        <FaPlus className="inline mr-2" />
+                      Tambah Edukasi
+                  </button>
+      </div>
+      <table className="min-w-full  bg-white border border-gray-200  overflow-hidden">
         <thead className="bg-gray-100 items-center">
             <tr className=''>
             <th className=" p-2  text-sm font-semibold text-gray-700">Gambar</th>
@@ -75,7 +97,7 @@ const Edukasi_Admin = () => {
                 <img
                     src={`${API}${item.image_url}`}
                     alt={item.title}
-                    className="w-20 h-14 object-cover rounded"
+                    className="w-20 h-14 object-cover "
                 />
                 </td>
                 <td className="p-2  text-sm font-medium">{item.title}</td>
@@ -107,6 +129,28 @@ const Edukasi_Admin = () => {
         onSubmit={handleSubmit}
         initialData={editingData}
       />
+      {showDeleteModal && (
+  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div className="bg-white p-6  shadow-lg max-w-sm w-full">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Hapus</h2>
+      <p className="text-sm text-gray-600">Apakah Anda yakin ingin menghapus Edukasi ini?</p>
+      <div className="flex justify-end gap-2 mt-6">
+        <button
+          onClick={() => setShowDeleteModal(false)}
+          className="px-4 py-2 bg-gray-300  hover:bg-gray-400"
+        >
+          Batal
+        </button>
+        <button
+          onClick={confirmDelete}
+          className="px-4 py-2 bg-red-600 text-white  hover:bg-red-700"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

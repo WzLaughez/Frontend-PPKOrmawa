@@ -3,21 +3,26 @@ import { useState, useEffect } from "react";
 const GaleriModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
     tanggal_kegiatan: "",
     image: null,
   });
 
   useEffect(() => {
-    if (initialData) {
-      setFormData({
-        title: initialData.title || "",
-        description: initialData.description || "",
-        tanggal_kegiatan: initialData.tanggal_kegiatan || "",
-        image: null, // hanya ketika upload baru
-      });
-    }
-  }, [initialData]);
+  if (initialData) {
+    setFormData({
+      title: initialData.title || "",
+      tanggal_kegiatan: initialData.tanggal_kegiatan || "",
+      image: null, // hanya ketika upload baru
+    });
+  } else {
+    setFormData({
+      title: "",
+      tanggal_kegiatan: "",
+      image: null,
+    });
+  }
+}, [initialData]);
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -52,18 +57,6 @@ const GaleriModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               onChange={handleChange}
               required
               className="w-full border px-3 py-2 rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Deskripsi</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="w-full border px-3 py-2 rounded"
-              rows={3}
             />
           </div>
 

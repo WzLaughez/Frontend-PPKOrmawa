@@ -7,15 +7,23 @@ const EdukasiModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     image: null,
   });
 
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        title: initialData.title || "",
-        description: initialData.description || "",
-        image: null, // image file baru hanya saat edit
-      });
-    }
-  }, [initialData]);
+useEffect(() => {
+  if (initialData) {
+    setFormData({
+      title: initialData.title || "",
+      description: initialData.description || "",
+      image: null, // reset file saat edit
+    });
+  } else {
+    // Reset saat Tambah
+    setFormData({
+      title: "",
+      description: "",
+      image: null,
+    });
+  }
+}, [initialData]);
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -35,7 +43,7 @@ const EdukasiModal = ({ isOpen, onClose, onSubmit, initialData }) => {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-      <div className="bg-white rounded-xl p-6 w-full max-w-lg shadow-lg">
+      <div className="bg-white  p-6 w-full max-w-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">
           {initialData ? "Edit Edukasi" : "Tambah Edukasi"}
         </h2>
@@ -49,7 +57,7 @@ const EdukasiModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border px-3 py-2"
             />
           </div>
 
@@ -60,7 +68,7 @@ const EdukasiModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border px-3 py-2"
               rows={3}
             />
           </div>
@@ -80,13 +88,13 @@ const EdukasiModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300"
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700"
             >
               Simpan
             </button>

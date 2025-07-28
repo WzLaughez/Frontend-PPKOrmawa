@@ -83,7 +83,7 @@ const Dashboard_Admin = () => {
   });
 
   return (
-    <div className="bg-gray-100 p-6 min-h-screen w-full space-y-4 shadow-md">
+    <div className="bg-WhitePPK p-6 min-h-screen w-full space-y-4 shadow-md">
 
       <h1 className="text-2xl font-semibold mb-4">Dashboard Admin Kesehatan</h1>
 
@@ -98,7 +98,7 @@ const Dashboard_Admin = () => {
       {/* Grid for Bar + Pie Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Bar Chart Box */}
-        <div className="bg-WhitePPK p-4 shadow">
+        <div className="bg-white p-4 shadow">
           <h2 className="text-lg font-semibold mb-2">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
           <div className="h-48">
             <Bar data={barChartData} options={barChartOptions} />

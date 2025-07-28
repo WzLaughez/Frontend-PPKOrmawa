@@ -16,6 +16,7 @@
     "aos": "^3.0.0-beta.6",
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
+    "file-saver": "^2.0.5",
     "firebase": "^11.9.1",
     "framer-motion": "^12.4.3",
     "heic2any": "^0.0.4",
@@ -31,7 +32,8 @@
     "react-select": "^5.10.2",
     "react-simple-typewriter": "^5.0.1",
     "react-toastify": "^11.0.5",
-    "recharts": "^3.1.0"
+    "recharts": "^3.1.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

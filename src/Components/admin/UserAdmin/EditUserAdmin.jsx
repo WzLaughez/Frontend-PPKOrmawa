@@ -2,7 +2,7 @@ import FormUserAdmin from "./FormUserAdmin";
 import axiosInstance from "../../../lib/axios";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
 const EditUserAdmin = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ const EditUserAdmin = () => {
       await axiosInstance.put(`/users/${id}`, data, {
         headers: { Authorization: `Bearer ${auth?.token}` },
       });
-      alert("Data berhasil diperbarui!");
+      toast.success("User berhasil diperbarui");
       navigate("/admin/pengguna");
     } catch (err) {
+      toast.error("Gagal memperbarui user");
       console.error("Gagal update:", err);
     }
   };

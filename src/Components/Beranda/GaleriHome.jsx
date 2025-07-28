@@ -3,32 +3,34 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import GaleriHomeGrid from './GaleriHomeGrid';
 import { FaArrowRight  } from "react-icons/fa";
-import supabase from '../admin/utils/supabaseClient'
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../lib/axios';
+
 const GaleriHome = () => {
   const [loading, setLoading] = useState(true);
+  const [galeri, setGaleri] = useState([])
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: false,
     });
   }, []);
-  const [galeri, setGaleri] = useState([])
-    useEffect(() => {
-      const fetchGaleri = async () => {
-        const { data, error } = await supabase
-          .from('subgaleri')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(5) // Ambil 6 data terbaru
-        if (error) console.error(error)
-        else {
-          setGaleri(data)
-          setLoading(false);}
+
+  useEffect(() => {
+    const fetchGaleri = async () => {
+      const { data, error } = await 
+      axiosInstance.get('/subgaleri/latest');
+      if (error) {
+        console.error('Error fetching galeri:', error);
+      } else {
+        setGaleri(data);
+        setLoading(false);
       }
-  
-      fetchGaleri()
-    }, [])
+    }
+
+    fetchGaleri()
+  }, [])
     
     if (loading) {
   return (

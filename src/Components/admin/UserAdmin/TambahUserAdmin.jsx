@@ -1,7 +1,7 @@
 import FormUserAdmin from "./FormUserAdmin";
 import axiosInstance from "../../../lib/axios";
 import { useNavigate, NavLink } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const TambahUserAdmin = () => {
   const navigate = useNavigate();
   const storedData = localStorage.getItem("auth");
@@ -11,9 +11,10 @@ const TambahUserAdmin = () => {
       await axiosInstance.post("/users", data,{
         headers: { Authorization: `Bearer ${auth?.token}` },
       });
-      alert("Berhasil menambahkan user!");
+      toast.success("User berhasil ditambahkan");
       navigate("/admin/pengguna");
     } catch (err) {
+      toast.error("Gagal menambah user");
       console.error("Gagal tambah user:", err);
     }
   };
