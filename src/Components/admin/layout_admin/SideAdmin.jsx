@@ -47,6 +47,9 @@ const Sidebar = ({ isOpen, onClose }) => {
         <NavLink to="/admin/galeri" className={navItemClass}>
           <Image size={20} /> Galeri
         </NavLink>
+        <NavLink to="/admin/kegiatan" className={navItemClass}>
+          <Calendar size={20} /> Jadwal Kegiatan
+        </NavLink>
         <NavLink to="/admin/profile" className={navItemClass}>
           <User size={20} /> Tanya Jawab
         </NavLink>

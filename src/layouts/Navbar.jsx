@@ -25,7 +25,7 @@ export default function NavBar() {
     `text-md font-medium transition-colors duration-300 ${isActive ? 'text-Blue font-semibold' : 'text-gray-700 hover:text-Blue'}`
 
   return (
-    <header className={`fixed w-full border-b-2 top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white'}`}>
+    <header className={`fixed w-full top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white border-b-2 shadow-md' : 'bg-white'}`}>
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Kiri: Logo dan Burger (mobile) */}
         <div className="flex items-center gap-3">
@@ -47,7 +47,7 @@ export default function NavBar() {
         {/* Tengah: Navigasi */}
         <div className="hidden lg:flex space-x-8">
           <NavLink to="/" className={linkClasses}>Home</NavLink>
-          <NavLink to="/about" className={linkClasses}>About Us</NavLink>
+          {/* <NavLink to="/about" className={linkClasses}>About Us</NavLink> */}
           <NavLink to="/edukasi" className={linkClasses}>Edukasi</NavLink>
           <NavLink to="/galeri" className={linkClasses}>Galeri</NavLink>
           <NavLink to="/tanya" className={linkClasses}>Tanya</NavLink>
@@ -93,9 +93,9 @@ export default function NavBar() {
                   <NavLink to="/edukasi" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
                     Edukasi
                   </NavLink>
-                  <NavLink to="/about" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  {/* <NavLink to="/about" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
                     About Us
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink to="/galeri" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
                     Galeri
                   </NavLink>

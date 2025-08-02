@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home, Droplet, Activity, Calendar, User, Activity as Bmi, X, LogOut } from "lucide-react";
+import { Home, Droplet, Activity, Calendar, User, Activity as Bmi, X, LogOut, HeartPulse } from "lucide-react";
 import { useAuth } from "../../../AuthContext";
 
 const navItemClass = ({ isActive }) =>
@@ -35,14 +35,14 @@ const SidebarAdmin = ({ isOpen, onClose }) => {
         <NavLink to="/user" end className={navItemClass}>
           <Home size={20} /> Overview
         </NavLink>
-        <NavLink to="/user/blood-sugar" className={navItemClass}>
-          <Droplet size={20} /> Blood Sugar
+        <NavLink to="/user/gula-darah" className={navItemClass}>
+          <Droplet size={20} /> Gula Darah
         </NavLink>
         <NavLink to="/user/hipertensi" className={navItemClass}>
-          <Activity size={20} /> Hipertensi
+          <HeartPulse size={20} /> Hipertensi
         </NavLink>
         <NavLink to="/user/bmi" className={navItemClass}>
-          <Bmi size={20} /> BMI
+          <Activity size={20} /> BMI
         </NavLink>
         <NavLink to="/user/profile" className={navItemClass}>
           <User size={20} /> User Profile

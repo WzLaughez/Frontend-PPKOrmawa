@@ -15,6 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Galeri_Admin from './admin/Galeri_Admin';
 import GaleriAdminDetail from './admin/galeri/GaleriAdminDetail';
+import Kegiatan_Admin from './admin/Kegiatan_Admin';
 
 function EditWrapper() {
   const location = useLocation();
@@ -51,6 +52,7 @@ const Admin = () => {
               <Route path="/edukasi" element={<Edukasi_Admin />} />
               <Route path="/galeri" element={<Galeri_Admin />} />
               <Route path="/galeri/:id" element={<GaleriAdminDetail />} />
+              <Route path="/kegiatan" element={<Kegiatan_Admin />} />
               <Route path="/pengurus" element={<AdminPengurus />} />
             </Routes>
               </main>

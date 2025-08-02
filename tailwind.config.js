@@ -29,7 +29,7 @@ export default {
         // poppins:['Poppins'],
         sans: ['Raleway', 'sans-serif'], // Primary font
         dmsans: ['DM Sans', 'sans-serif'], 
-        serif: ['Merriweather', 'Georgia', 'serif'], // Secondary font
+        serif: ['Merriweather', 'Georgia'], // Secondary font
         mono: ['Courier New', 'monospace'], // Monospace font
       }
     },

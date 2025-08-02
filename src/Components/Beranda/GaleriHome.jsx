@@ -45,20 +45,22 @@ const GaleriHome = () => {
       
 
       {/* Header */}
-      <header className="w-full">
-        
-        <div className="relative z-10 pt-10 " data-aos="fade-down">
-        <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block">
-            <h2 className="text-1xl sm:text-2xl md:text-3xl font-bold text-Sage">
-              <span className="text-Blue">
-                Galeri PRIMA HEALTH
-              </span>
-            </h2>
+       {/* Enhanced Heading & Banner */}
+        <header className="text-center  mt-12" data-aos="fade-down">
+          <div className="relative inline-block">
+            {/* Decorative Elements */}
+            <div className="absolute -top-3 -left-3 w-16 h-16 border-l-4 border-t-4 border-blue-400/30 rounded-tl-3xl"></div>
+            <div className="absolute -bottom-3 -right-3 w-16 h-16 border-r-4 border-b-4 border-yellow-400/30 rounded-br-3xl"></div>
+            
+            <div className="relative  backdrop-blur-sm rounded-3xl p-4  max-w-4xl">
+              <h2 className="text-xl md:text-3xl font-bold  leading-tight ">
+                <span className="text-Blue">Galeri PrimaHealth </span>
+                </h2>
+              
+              
+            </div>
           </div>
-        </div>
-      </div>
-      </header>
+        </header>
 
       {/* Main Content */}
       <div className="relative px-4 sm:px-6 lg:px-8 py-6 sm:py-10">

@@ -77,7 +77,7 @@ const confirmDelete = async () => {
   };
 
   return (
-    <div className="p-6 mx-auto">
+    <div className="p-6 mx-auto bg-WhitePPK min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Manajemen Galeri</h2>
       </div>

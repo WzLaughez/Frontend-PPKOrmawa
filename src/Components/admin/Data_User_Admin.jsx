@@ -191,10 +191,12 @@ const handleDownloadUserExcel = () => {
             <th className="p-2">Nama</th>
             <th className="p-2">Tempat, Tgl Lahir</th>
             <th className="p-2">Agama</th>
+            <th className="p-2">Alamat</th>
             <th className="p-2">Jenis Kelamin</th>
             <th className="p-2">RW</th>
             <th className="p-2">RT</th>
             <th className="p-2">No HP</th>
+            <th className="p-2">Email</th>
             <th className="p-2">Aksi</th>
           </tr>
         </thead>
@@ -211,11 +213,15 @@ const handleDownloadUserExcel = () => {
                 {user.agama || "-"}
               </td>
               <td className="p-2 text-center">
+                {user.alamat || "-"}
+              </td>
+              <td className="p-2 text-center">
                 {user.jenis_kelamin || "-"}
               </td>
               <td className="p-2">{user.rw}</td>
               <td className="p-2">{user.rt}</td>
               <td className="p-2">{user.no_hp}</td>
+              <td className="p-2">{user.email}</td>
               <td className="p-2 text-center">
                     <div className="flex gap-2">
                       <NavLink to={`/admin/pengguna/edit/${user.id}`}>
