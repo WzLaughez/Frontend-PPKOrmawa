@@ -75,8 +75,8 @@ const getStatusBMIColor = (status) => {
   return (
 <div className="bg-WhitePPK shadow rounded-xl p-6 space-y-6">
   <div className="space-y-2">
-    <h2 className="text-xl font-bold text-gray-800">Riwayat Pemeriksaan BMI</h2>
-    <p className="text-sm text-gray-500">Data pemeriksaan terakhir dan grafik perkembangan BMI Anda</p>
+    <h2 className="text-xl font-bold text-gray-800">Riwayat Pemeriksaan Indeks Masa Tubuh</h2>
+    <p className="text-sm text-gray-500">Data pemeriksaan terakhir dan grafik perkembangan IMT Anda</p>
   </div>
 
   <div className="flex justify-center items-center space-x-10">
@@ -95,7 +95,7 @@ const getStatusBMIColor = (status) => {
    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
   <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
     <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-    Pemeriksaan Terakhir
+    Pemeriksaan IMT <br/> Terakhir
   </h3>
   
   <div className="space-y-3">

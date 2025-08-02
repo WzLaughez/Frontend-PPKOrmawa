@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import KategoriHipertensi from "./Kategori/KategoriHipertensi";
 
 export default function Profil() {
   const [userData, setUserData] = useState(null);
@@ -55,8 +54,6 @@ export default function Profil() {
         ) : (
           <p className="text-red-500">Data pengguna tidak ditemukan.</p>
         )}
-
-        <KategoriHipertensi />
       </main>
     </div>
   );

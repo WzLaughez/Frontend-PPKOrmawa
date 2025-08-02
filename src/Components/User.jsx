@@ -7,6 +7,7 @@ import Dashboard_user from './users/Dashboard_user';
 import Profil from './users/Profil';
 import IMT from './users/IMT_user';
 import GulaDarahUser from './users/GulaDarah_user';
+import HipertensiUser from './users/Hipertensi_user';
 
 const User = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,6 +29,7 @@ const User = () => {
             <Route path="/" element={<Dashboard_user />} />
             <Route path="/profile" element={<Profil />} />
             <Route path="/gula-darah" element={<GulaDarahUser />} />
+            <Route path="/hipertensi" element={<HipertensiUser />} />
             <Route path="/bmi" element={<IMT />} />
             {/* Tambah route lain jika perlu */}
           </Routes>

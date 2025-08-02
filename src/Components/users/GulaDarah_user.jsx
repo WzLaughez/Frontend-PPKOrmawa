@@ -48,20 +48,19 @@ const GulaDarahUser = () => {
       case "pradiabetes":
         return { bg: "bg-yellow-500", text: "text-yellow-800" };
       case "diabetes":
-        return { bg: "bg-red-200", text: "text-red-800" };
+        return { bg: "bg-red-500", text: "text-red-200" };
       default:
         return { bg: "bg-gray-200", text: "text-gray-800" };
     }
   };
 
   return (
-    <div className="bg-white shadow rounded-xl p-6 space-y-6">
+    <div className="bg-WhitePPK shadow rounded-xl p-6 space-y-6">
       <div className="space-y-2">
         <h2 className="text-xl font-bold text-gray-800">Riwayat Pemeriksaan Gula Darah</h2>
         <p className="text-sm text-gray-500">Data pemeriksaan terakhir dan grafik perkembangan gula darah Anda</p>
       </div>
 <div className="flex justify-center items-center space-x-10">
-
       <div className="grid sm:grid-cols-2 gap-4">
         <Card
         icon="/Group 35.svg"
@@ -78,7 +77,7 @@ const GulaDarahUser = () => {
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
             <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-            Pemeriksaan Terakhir
+            Pemeriksaan Gula <br/>Darah Terakhir
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between py-2 border-b border-gray-100">
@@ -129,7 +128,7 @@ const GulaDarahUser = () => {
                   <td className="px-4 py-2 border">{formatTanggal(item.tanggal_pemeriksaan)}</td>
                   <td className="px-4 py-2 border capitalize">{item.tipe_gula_darah}</td>
                   <td className="px-4 py-2 border">{item.gula_darah}</td>
-                  <td className={`px-4 py-2 border font-medium ${getStatusColor(item.status_gula_darah).text}`}>
+                  <td className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(item?.status_gula_darah).bg} ${getStatusColor(item?.status_gula_darah).text}`}>
                     {item.status_gula_darah}
                   </td>
                 </tr>
