@@ -174,9 +174,9 @@ const MonthlyCalendar = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto" data-aos="fade-down">
+      <div className="relative z-10 max-w-6xl mx-auto" >
         {/* Header Section */}
-        <div className="text-center mb-12" data-aos="fade-down" >
+        <div className="text-center mb-12" >
           <div className="relative inline-block">
             {/* Decorative Elements */}
             <div className="absolute -top-6 -left-6 w-12 h-12 border-l-4 border-t-4 border-blue-400/30 rounded-tl-2xl"></div>
@@ -203,7 +203,7 @@ const MonthlyCalendar = () => {
         </div>
 
         {/* Calendar Container */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/30 p-8" data-aos="fade-up" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1)' }}>
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/30 p-8" data-aos="fade-up">
           
           {/* Calendar Navigation */}
           <div className="flex justify-between items-center mb-8">

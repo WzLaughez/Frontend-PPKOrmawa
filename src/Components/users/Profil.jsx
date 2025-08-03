@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../lib/axios";
 
 export default function Profil() {
   const [userData, setUserData] = useState(null);
@@ -12,7 +12,7 @@ export default function Profil() {
     if (auth && auth.user && auth.token) {
       const userId = auth.user.id;
 
-      axios.get(`http://localhost:3001/api/users/${userId}`, {
+      axiosInstance.get(`users/${userId}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

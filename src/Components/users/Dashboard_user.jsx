@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 // import { Card, CardContent } from '@/components/ui/card';
 // import { Card, CardContent } from '../../components/Card';
 import Card from './layout_user/Card'; // Pastikan path ini sesuai dengan struktur folder Anda
@@ -13,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import axiosInstance from "../../lib/axios";
 ChartJS.register(
   LineElement,
   PointElement,
@@ -38,8 +38,8 @@ export default function Dashboard_user() {
     };
 
     Promise.all([
-      axios.get(`http://localhost:3001/api/kesehatan/byyear?year=${year}&user_id=${userId}`, { headers }),
-      axios.get(`http://localhost:3001/api/users/${userId}`, { headers }),
+      axiosInstance.get(`kesehatan/byyear?year=${year}&user_id=${userId}`, { headers }),
+      axiosInstance.get(`users/${userId}`, { headers }),
     ])
       .then(([kesehatanRes, userRes]) => {
         setData(kesehatanRes.data);   // Data kesehatan tahunan
