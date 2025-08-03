@@ -2,7 +2,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
+import {Link} from 'react-router-dom';
 const data = [
     { x: 0, y: 55 },
     { x: 1, y: 40 },
@@ -133,9 +133,11 @@ export default function DashboardSection() {
             </div>
           </div>
       {/* Tombol CTA */}
+      <Link to="/login">
       <button className="px-6 py-2 bg-[#004D7A] hover:bg-[#003B5C] text-white rounded-full text-sm shadow transition">
         PANTAU SEKARANG →
       </button>
+      </Link>
     </div>
   );
 }

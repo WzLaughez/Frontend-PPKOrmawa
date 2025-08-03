@@ -65,11 +65,14 @@ const kategoriGulaDarah = {
 
 const renderKategori = (kategoriArray) =>
   kategoriArray.map((kategori, idx) => (
-    <div key={idx} className="bg-white rounded-xl shadow text-center p-4 space-y-2">
-      <div className={`${kategori.bgColor} text-white font-bold py-1 rounded`}>
+    <div
+      key={idx}
+      className="bg-white rounded-xl shadow text-center p-4 space-y-2 w-full"
+    >
+      <div className={`${kategori.bgColor} text-white font-bold py-1 rounded text-sm`}>
         {kategori.label}
       </div>
-      <div className={`${kategori.textColor} font-medium bg-gray-100 py-2 rounded`}>
+      <div className={`${kategori.textColor} font-medium bg-gray-100 py-2 rounded text-sm`}>
         {kategori.range}
       </div>
     </div>
@@ -77,31 +80,39 @@ const renderKategori = (kategoriArray) =>
 
 const KategoriGulaDarah = () => {
   return (
-    <div className="p-4 space-y-6">
-      <h2 className="text-center text-xl font-semibold">Kategori Gula Darah</h2>
+    <div className="bg-WhitePPK shadow rounded-xl p-6 space-y-6 max-w-screen-xl mx-auto">
+    <div className="p-4 bg-white shadow rounded-xl max-w-screen-xl mx-auto">
+      <h2 className="text-center text-xl font-semibold mb-6">Kategori Gula Darah</h2>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">🩸 Gula Darah Puasa</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {renderKategori(kategoriGulaDarah.puasa)}
+      <div className="space-y-8">
+        {/* Gula Darah Puasa */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">🩸 Gula Darah Puasa</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {renderKategori(kategoriGulaDarah.puasa)}
+          </div>
         </div>
-      </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">🍚 Gula Darah 2 Jam Setelah Makan</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {renderKategori(kategoriGulaDarah.duaJamPP)}
+        {/* 2 Jam Setelah Makan */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">🍚 Gula Darah 2 Jam Setelah Makan</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {renderKategori(kategoriGulaDarah.duaJamPP)}
+          </div>
         </div>
-      </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">⏱️ Gula Darah Sewaktu</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-          {renderKategori(kategoriGulaDarah.sewaktu)}
+        {/* Gula Darah Sewaktu */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">⏱️ Gula Darah Sewaktu</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {renderKategori(kategoriGulaDarah.sewaktu)}
+          </div>
         </div>
       </div>
     </div>
+    </div>
   );
 };
+
 
 export default KategoriGulaDarah;

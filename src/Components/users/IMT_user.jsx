@@ -52,7 +52,7 @@ const IMT = () => {
   if (bmiValue < 18.5 ) {
     return { bg: "bg-blue-300", text: "text-blue-900" };
   } else if (bmiValue < 25) {
-    return { bg: "bg-green-400", text: "text-green-900" };
+    return { bg: "bg-green-200", text: "text-green-800" };
   } else if (bmiValue < 30) {
     return { bg: "bg-yellow-300", text: "text-yellow-900" };
   } else {

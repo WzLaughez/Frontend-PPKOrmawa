@@ -77,6 +77,31 @@ export default function Dashboard_user() {
       legend: { display: false },
     },
   };
+const getStatusColor = (status, category) => {
+  const key = status?.toLowerCase();
+
+  const colorMap = {
+    gula_darah: {
+      normal: { bg: "bg-green-200", text: "text-green-800" },
+      pradiabetes: { bg: "bg-yellow-500", text: "text-yellow-800" },
+      diabetes: { bg: "bg-red-500", text: "text-red-200" },
+    },
+    tekanan_darah: {
+      normal: { bg: "bg-green-100", text: "text-green-700" },
+      "pra-hipertensi": { bg: "bg-yellow-100", text: "text-yellow-700" },
+      "hipertensi tahap 1": { bg: "bg-orange-100", text: "text-orange-700" },
+      "hipertensi tahap 2": { bg: "bg-red-100", text: "text-red-700" },
+      "krisis hipertensi": { bg: "bg-red-200", text: "text-red-800" },
+    },
+    bmi: {
+      normal: { bg: "bg-green-200", text: "text-green-800" },
+      gemuk: { bg: "bg-yellow-500", text: "text-yellow-800" },
+      obesitas: { bg: "bg-red-200", text: "text-red-800" },
+    },
+  };
+
+  return colorMap[category]?.[key] || { bg: "bg-gray-200", text: "text-gray-800" };
+};
 
   return (
   <div className="p-4 bg-WhitePPK  shadow max-w-screen-xl mx-auto">
@@ -137,16 +162,6 @@ export default function Dashboard_user() {
         {/* Tanggal Terakhir */}
 
         <Card
-          icon="/Group 31.svg"
-          title="Tekanan Darah"
-          value={`${latest?.tekanan_sistolik || '-'} / ${latest?.tekanan_diastolik || '-'}`}
-          unit="mmHg"
-          status={latest?.status_tekanan_darah || '-'}
-          date_latest={formattedDate || '-'}
-          statusColor={{ bg: "bg-blue-100", text: "text-blue-700" }}
-          grafik="/Group 11.svg"
-        />
-        <Card
           icon="/Group 35.svg"
           title="Gula Darah"
           value={latest?.gula_darah || '-'}
@@ -154,8 +169,18 @@ export default function Dashboard_user() {
           status={latest?.status_gula_darah || '-'}
           tipe={latest?.tipe_gula_darah || '-'}       
           date_latest={formattedDate || '-'}
-          statusColor={{ bg: "bg-yellow-100", text: "text-yellow-700" }}
+          statusColor={getStatusColor(latest?.status_gula_darah, "gula_darah")}
           grafik="/Group 30.svg"
+        />
+        <Card
+          icon="/Group 31.svg"
+          title="Tekanan Darah"
+          value={`${latest?.tekanan_sistolik || '-'} / ${latest?.tekanan_diastolik || '-'}`}
+          unit="mmHg"
+          status={latest?.status_tekanan_darah || '-'}
+          date_latest={formattedDate || '-'}
+          statusColor={getStatusColor(latest?.status_tekanan_darah, "tekanan_darah")}
+          grafik="/Group 11.svg"
         />
         <Card
           icon="/BMI.png"
@@ -164,7 +189,7 @@ export default function Dashboard_user() {
           unit=""
           status="Sehat"
           date_latest={formattedDate || '-'}
-          statusColor={{ bg: "bg-purple-100", text: "text-purple-700" }}
+          statusColor={getStatusColor(latest?.status_bmi, "bmi")}
           grafik="/Group 29.svg"
           />
           </div>

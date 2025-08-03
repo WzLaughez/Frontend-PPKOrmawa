@@ -16,7 +16,7 @@ const SidebarAdmin = ({ isOpen, onClose }) => {
   };
   return (
     <div className={`fixed md:relative top-0 left-0 h-full bg-white dark:bg-gray-900 shadow-md z-50 w-64
-      transform transition-transform duration-300
+      transform transition-transform duration-300 
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
       
       {/* Tombol close hanya muncul di mobile */}

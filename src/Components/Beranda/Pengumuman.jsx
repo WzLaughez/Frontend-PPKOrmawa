@@ -134,6 +134,7 @@ const ArticleSection = () => {
           </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" data-aos="fade-down">
         {pengumuman.map((item) => (
+          <Link to={`/edukasi/${item.id}`} key={item.id}>
           <ArticleCard
             key={item.id}
             id={item.id}
@@ -141,9 +142,11 @@ const ArticleSection = () => {
             description={item.description}
             image={`${API}${item.image_url}`}
           />
+          </Link>
         ))}
       </div>
       <div className="text-center mt-12">
+        <Link to="/edukasi">
             <button className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               <span className="relative flex items-center">
@@ -153,6 +156,7 @@ const ArticleSection = () => {
                 </svg>
               </span>
             </button>
+        </Link>
           </div>
     </div>
   );
