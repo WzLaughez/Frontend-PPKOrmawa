@@ -14,7 +14,7 @@ const Edukasi_Admin = () => {
   const storedData = localStorage.getItem("auth");
   const auth = storedData ? JSON.parse(storedData) : null;
   const headers = { Authorization: `Bearer ${auth?.token}` };
-
+  const [loading, setLoading] = useState(false);
   const fetchEdukasi = async () => {
     try {
       const res = await axiosInstance.get('/edukasi', { headers });
@@ -36,10 +36,13 @@ const Edukasi_Admin = () => {
     setShowModal(true);
   };
   const handleSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    if (data.image) formData.append("image", data.image);
+  const formData = new FormData();
+  formData.append("title", data.title);
+  formData.append("description", data.description);
+  if (data.image) formData.append("image", data.image);
+
+  try {
+    setLoading(true);
 
     if (editingData) {
       await axiosInstance.put(`/edukasi/${editingData.id}`, formData);
@@ -48,10 +51,16 @@ const Edukasi_Admin = () => {
       await axiosInstance.post("/edukasi", formData);
       toast.success("Edukasi berhasil ditambahkan");
     }
-    
+
     setShowModal(false);
     fetchEdukasi();
-  };
+  } catch (error) {
+    console.error(error);
+    toast.error("Terjadi kesalahan saat menyimpan data");
+  } finally {
+    setLoading(false);
+  }
+};
   
   const handleDeleteClick = (id) => {
     setSelectedId(id);
@@ -128,6 +137,7 @@ const Edukasi_Admin = () => {
         onClose={() => setShowModal(false)}
         onSubmit={handleSubmit}
         initialData={editingData}
+        loading={loading}
       />
       {showDeleteModal && (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">

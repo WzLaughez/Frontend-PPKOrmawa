@@ -12,6 +12,7 @@ const GaleriAdminDetail = () => {
     image: null,
   });
 
+  const [loading, setLoading] = useState(false);
   const API = import.meta.env.VITE_API_BASE_URL;
   const storedData = localStorage.getItem("auth");
   const auth = storedData ? JSON.parse(storedData) : null;
@@ -49,21 +50,25 @@ const GaleriAdminDetail = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const fd = new FormData();
-      fd.append("title", form.title);
-      fd.append("galeri_id", id);
-      if (form.image) fd.append("image", form.image);
+  e.preventDefault();
+  setLoading(true); // mulai loading
+  try {
+    const fd = new FormData();
+    fd.append("title", form.title);
+    fd.append("galeri_id", id);
+    if (form.image) fd.append("image", form.image);
 
-      await axiosInstance.post("/subgaleri", fd, { headers });
-      toast.success("Subgaleri berhasil ditambahkan!");
-      setForm({ title: "", image: null });
-      fetchSubgaleri();
-    } catch (err) {
-      toast.error("Gagal menambahkan subgaleri.");
-    }
-  };
+    await axiosInstance.post("/subgaleri", fd, { headers });
+    toast.success("Subgaleri berhasil ditambahkan!");
+    setForm({ title: "", image: null });
+    fetchSubgaleri();
+  } catch (err) {
+    toast.error("Gagal menambahkan subgaleri.");
+  } finally {
+    setLoading(false); // berhenti loading
+  }
+};
+
 
   return (
     <div className="p-6">
@@ -108,10 +113,12 @@ const GaleriAdminDetail = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2  hover:bg-blue-700"
+          disabled={loading}
+          className={`px-4 py-2 text-white ${loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"}`}
         >
-          Simpan
+          {loading ? "Menyimpan..." : "Simpan"}
         </button>
+
       </form>
 
       <h3 className="text-xl font-semibold mb-4">Daftar Subgaleri</h3>
@@ -127,8 +134,6 @@ const GaleriAdminDetail = () => {
               className="w-full h-32 object-cover "
             />
             <p className="mt-2 text-sm font-medium text-center">{item.title}</p>
-          {/* // Icon edit dan delete */}
-          
             <div className="flex justify-center mt-2">
               <button
                 className="text-red-600 hover:underline"

@@ -10,6 +10,7 @@ const Galeri_Admin = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [editingData, setEditingData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const API = import.meta.env.VITE_API_BASE_URL;
 
   const storedData = localStorage.getItem("auth");
@@ -62,18 +63,26 @@ const confirmDelete = async () => {
     formData.append("description", data.description);
     formData.append("tanggal_kegiatan", data.tanggal_kegiatan);
     if (data.image) formData.append("image", data.image);
-
-    if (editingData) {
-      await axiosInstance.put(`/galeri/${editingData.id}`, formData, { headers });
-      toast.success("Galeri berhasil diperbarui");
-      setEditingData(null);
-    } else {
-      await axiosInstance.post("/galeri", formData, { headers });
-      toast.success("Galeri berhasil ditambahkan");
-    }
+    try{
+      setLoading(true);
+      if (editingData) {
+        await axiosInstance.put(`/galeri/${editingData.id}`, formData, { headers });
+        toast.success("Galeri berhasil diperbarui");
+        setEditingData(null);
+      } else {
+        await axiosInstance.post("/galeri", formData, { headers });
+        toast.success("Galeri berhasil ditambahkan");
+      }
 
     setShowModal(false);
     fetchGaleri();
+    } catch (error) {
+      console.error("Gagal menyimpan data galeri:", error);
+      toast.error("Terjadi kesalahan saat menyimpan data");
+    } finally {
+      setLoading(false);
+    }
+
   };
 
   return (
@@ -139,6 +148,7 @@ const confirmDelete = async () => {
             onClose={() => setShowModal(false)}
             onSubmit={handleSubmit}
             initialData={editingData}
+        loading={loading}
           />
       {showDeleteModal && (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">

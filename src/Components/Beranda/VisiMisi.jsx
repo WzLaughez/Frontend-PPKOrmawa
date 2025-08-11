@@ -99,7 +99,7 @@ const VisiMisi = () => {
               <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-emerald-600/10 z-10"></div>
                 <img 
-                  src="/download.jpg"
+                  src="/balai.jpg"
                   alt="Healthcare Building" 
                   className="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />

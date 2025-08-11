@@ -120,48 +120,9 @@ const handleDownloadUserExcel = () => {
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">Data Pemeriksaan Kesehatan</h1>
 
-      <div className="flex justify-between items-end mb-6">
-  {/* Filter Tahun & Bulan */}
-  <div className="flex gap-4">
-    <div>
-      <label className="block text-sm font-medium">Tahun</label>
-      <select
-        className="border rounded px-3 py-2"
-        value={tahun}
-        onChange={(e) => setTahun(e.target.value)}
-      >
-        <option disabled value="">
-          Pilih Tahun
-        </option>
-        {daftarTahun.map((t) => (
-          <option key={t} value={t}>
-            {t}
-          </option>
-        ))}
-      </select>
-    </div>
-
-    <div>
-      <label className="block text-sm font-medium">Bulan</label>
-      <select
-        className="border rounded px-3 py-2"
-        value={bulan === null ? "" : bulan}
-        onChange={(e) => {
-          const val = e.target.value;
-          setBulan(val === "" ? null : parseInt(val));
-        }}
-      >
-        {daftarBulan.map((b) => (
-          <option key={b.label} value={b.value === null ? "" : b.value}>
-            {b.label}
-          </option>
-        ))}
-      </select>
-    </div>
-    </div>
+      <div className="flex justify-end items-end mb-6">
 
     <div className="flex gap-2">
-    
           <button
             onClick={handleDownloadUserExcel}
             className="px-4 py-2 bg-green-700 text-white text-sm hover:bg-green-600 shadow"

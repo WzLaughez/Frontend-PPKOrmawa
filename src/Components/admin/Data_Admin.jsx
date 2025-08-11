@@ -14,6 +14,9 @@ const Data_Admin = () => {
   const [dataKesehatan, setDataKesehatan] = useState([]);
   const [tahun, setTahun] = useState(currentYear);
   const [bulan, setBulan] = useState(null);
+  const [filterBMI, setFilterBMI] = useState("");
+  const [filterGula, setFilterGula] = useState("");
+  const [filterTekanan, setFilterTekanan] = useState("");
 
   const fetchData = async () => {
     try {
@@ -115,70 +118,146 @@ const Data_Admin = () => {
 
   saveAs(file, `data_kesehatan_${tahun}${bulan ? "_" + bulan : ""}.xlsx`);
 };
+const getStatusColor = (status, category) => {
+  const key = status?.toLowerCase();
 
+  const colorMap = {
+    gula_darah: {
+      normal: { bg: "bg-green-200", text: "text-green-800" },
+      pradiabetes: { bg: "bg-yellow-500", text: "text-yellow-800" },
+      diabetes: { bg: "bg-red-500", text: "text-red-200" },
+    },
+    tekanan_darah: {
+      normal: { bg: "bg-green-100", text: "text-green-700" },
+      "pra-hipertensi": { bg: "bg-yellow-100", text: "text-yellow-700" },
+      "hipertensi tahap 1": { bg: "bg-orange-100", text: "text-orange-700" },
+      "hipertensi tahap 2": { bg: "bg-red-100", text: "text-red-700" },
+      "hipertensi sistolik terisolasi": { bg: "bg-red-200", text: "text-red-800" },
+    },
+    bmi: {
+      normal: { bg: "bg-green-200", text: "text-green-800" },
+      gemuk: { bg: "bg-yellow-500", text: "text-yellow-800" },
+      obesitas: { bg: "bg-red-200", text: "text-red-800" },
+    },
+  };
+
+  return colorMap[category]?.[key] || { bg: "bg-gray-200", text: "text-gray-800" };
+};
+const filteredItems = currentItems.filter((item) => {
+  const matchBMI = filterBMI === "" || item.status_bmi?.toLowerCase() === filterBMI;
+  const matchGula = filterGula === "" || item.status_gula_darah?.toLowerCase() === filterGula;
+  const matchTekanan = filterTekanan === "" || item.status_tekanan_darah?.toLowerCase() === filterTekanan;
+
+  return matchBMI && matchGula && matchTekanan;
+});
 
   return (
     <div className="p-6 bg-WhitePPK min-h-screen w-full space-y-4 shadow-md">
       <h1 className="text-2xl font-semibold mb-4">Data Pemeriksaan Kesehatan</h1>
-      <div className="flex justify-between items-end mb-6">
-        {/* Filter Tahun & Bulan */}
-        <div className="flex gap-4">
-          <div>
-            <label className="block text-sm font-medium">Tahun</label>
-            <select
-              className="border rounded px-3 py-2"
-              value={tahun}
-              onChange={(e) => setTahun(e.target.value)}
-            >
-              <option disabled value="">
-                Pilih Tahun
-              </option>
-              {daftarTahun.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Bulan</label>
-            <select
-              className="border rounded px-3 py-2"
-              value={bulan === null ? "" : bulan}
-              onChange={(e) => {
-                const val = e.target.value;
-                setBulan(val === "" ? null : parseInt(val));
-              }}
-            >
-              {daftarBulan.map((b) => (
-                <option key={b.label} value={b.value === null ? "" : b.value}>
-                  {b.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-    <div className="flex gap-2">
-      <button
-        onClick={handleDownloadExcel}
-        className="px-4 py-2 bg-green-700 text-white text-sm hover:bg-green-600 shadow"
+      <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6">
+  {/* Filter Tahun & Bulan */}
+  <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+    <div className="w-full sm:w-auto">
+      <label className="block text-sm font-medium">Tahun</label>
+      <select
+        className="border rounded px-3 py-2 w-full sm:w-auto"
+        value={tahun}
+        onChange={(e) => setTahun(e.target.value)}
       >
-        <FaDownload className="inline mr-2" />
-        Download Data
-      </button>
-
-    {/* Tombol Tambah Data */}
-      <NavLink to="/admin/data/tambah">
-          <button className="flex items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow">
-            <FaPlus className="inline mr-2 " />
-          <div>
-            Tambah Data
-            </div>
-          </button>
-      </NavLink>
-      </div>
+        <option disabled value="">
+          Pilih Tahun
+        </option>
+        {daftarTahun.map((t) => (
+          <option key={t} value={t}>
+            {t}
+          </option>
+        ))}
+      </select>
     </div>
+
+    <div className="w-full sm:w-auto">
+      <label className="block text-sm font-medium">Bulan</label>
+      <select
+        className="border rounded px-3 py-2 w-full sm:w-auto"
+        value={bulan === null ? "" : bulan}
+        onChange={(e) => {
+          const val = e.target.value;
+          setBulan(val === "" ? null : parseInt(val));
+        }}
+      >
+        {daftarBulan.map((b) => (
+          <option key={b.label} value={b.value === null ? "" : b.value}>
+            {b.label}
+          </option>
+        ))}
+      </select>
+    </div>
+    <div>
+    <label className="block text-sm font-medium">Status BMI</label>
+    <select
+      value={filterBMI}
+      onChange={(e) => setFilterBMI(e.target.value)}
+      className="border rounded px-3 py-2"
+    >
+      <option value="">Semua</option>
+      <option value="normal">Normal</option>
+      <option value="gemuk">Gemuk</option>
+      <option value="obesitas">Obesitas</option>
+    </select>
+  </div>
+
+  {/* Filter Gula Darah */}
+  <div>
+    <label className="block text-sm font-medium">Status Gula Darah</label>
+    <select
+      value={filterGula}
+      onChange={(e) => setFilterGula(e.target.value)}
+      className="border rounded px-3 py-2"
+    >
+      <option value="">Semua</option>
+      <option value="normal">Normal</option>
+      <option value="pradiabetes">Pradiabetes</option>
+      <option value="diabetes">Diabetes</option>
+    </select>
+  </div>
+
+  {/* Filter Tekanan Darah */}
+  <div>
+    <label className="block text-sm font-medium">Status Tekanan Darah</label>
+    <select
+      value={filterTekanan}
+      onChange={(e) => setFilterTekanan(e.target.value)}
+      className="border rounded px-3 py-2"
+    >
+      <option value="">Semua</option>
+      <option value="normal">Normal</option>
+      <option value="pra-hipertensi">Pra-Hipertensi</option>
+      <option value="hipertensi tahap 1">Hipertensi Tahap 1</option>
+      <option value="hipertensi tahap 2">Hipertensi Tahap 2</option>
+      <option value="hipertensi sistolik terisolasi">Hipertensi Sistolik Terisolasi</option>
+    </select>
+  </div>
+  </div>
+
+  {/* Tombol Aksi */}
+  <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+    <button
+      onClick={handleDownloadExcel}
+      className="px-4 py-2 bg-green-700 text-white text-sm hover:bg-green-600 shadow w-full sm:w-auto"
+    >
+      <FaDownload className="inline mr-2" />
+      Download Data
+    </button>
+
+    <NavLink to="/admin/data/tambah" className="w-full sm:w-auto">
+      <button className="items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow w-full sm:w-auto">
+        <FaPlus className="inline mr-2" />
+        Tambah Data
+      </button>
+    </NavLink>
+  </div>
+</div>
+
 
 
       <div className="overflow-x-auto">
@@ -201,21 +280,33 @@ const Data_Admin = () => {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((item,index) => (
+            {filteredItems.map((item,index) => (
               <tr key={item.id} className="bg-WhitePPK hover:bg-gray-100">
                 <td className="p-2 text-center">{indexOfFirstItem + index + 1}</td>
                 <td className="p-2 text-center">{item.tanggal_pemeriksaan}</td>
                 <td className="p-2 text-center">{item.user?.nama || "-"}</td>
                 <td className="p-2 text-center">{item.tinggi_badan}</td>
                 <td className="p-2 text-center">{item.berat_badan} </td>
-                <td className="p-2 text-center">{item.status_bmi || "-"}</td>
+                <td className="p-2 text-center">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(item.status_bmi, "bmi").bg} ${getStatusColor(item.status_bmi, "bmi").text}`}>
+                    {item.status_bmi || "-"}
+                  </span>
+                </td>
                 <td className="p-2 text-center">{item.tipe_gula_darah || "-"}</td>
                 <td className="p-2 text-center">{`${item.gula_darah}` || "-"}</td>
-                <td className="p-2 text-center">{item.status_gula_darah || "-"}</td>
+                <td className="p-2 text-center ">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(item.status_gula_darah, "gula_darah").bg} ${getStatusColor(item.status_gula_darah, "gula_darah").text}`}>
+                    {item.status_gula_darah || "-"}
+                  </span>
+                </td>
                 <td className="p-2 text-center">
                   {item.tekanan_sistolik}/{item.tekanan_diastolik}
                 </td>
-                <td className="p-2 text-center">{item.status_tekanan_darah || "-"}</td>
+                <td className="p-2 text-center">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(item.status_tekanan_darah, "tekanan_darah").bg} ${getStatusColor(item.status_tekanan_darah, "tekanan_darah").text}`}>
+                    {item.status_tekanan_darah || "-"}
+                  </span>
+                </td>
                 <td className="p-2 text-center">{item.catatan || "-"}</td>
                 <td className="p-2 text-center">
                     <div className="flex gap-2">

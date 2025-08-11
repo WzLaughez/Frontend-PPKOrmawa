@@ -187,7 +187,7 @@ const getStatusColor = (status, category) => {
           title="Indeks Masa Tubuh"
           value={latest?.bmi || '-'}
           unit=""
-          status="Sehat"
+          status={latest?.status_bmi || '-'}
           date_latest={formattedDate || '-'}
           statusColor={getStatusColor(latest?.status_bmi, "bmi")}
           grafik="/Group 29.svg"

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const GaleriModal = ({ isOpen, onClose, onSubmit, initialData }) => {
+const GaleriModal = ({ isOpen, onClose, onSubmit, initialData, loading }) => {
   const [formData, setFormData] = useState({
     title: "",
     tanggal_kegiatan: "",
@@ -93,9 +93,10 @@ const GaleriModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Simpan
+              className={`px-4 py-2 text-white ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"}`}
+              disabled={loading}
+              >
+              {loading ? "Menyimpan..." : "Simpan"}
             </button>
           </div>
         </form>
