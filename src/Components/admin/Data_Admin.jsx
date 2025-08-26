@@ -8,7 +8,10 @@ import { FaDownload, FaPlus, FaRegCreditCard } from "react-icons/fa";
 const Data_Admin = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [searchNama, setSearchNama] = useState(""); // 🔍 state untuk search nama
   const currentYear = new Date().getFullYear();
+  const [sortOrder, setSortOrder] = useState(null); // null | "asc" | "desc"
+
   const currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
   const [dataKesehatan, setDataKesehatan] = useState([]);
@@ -72,14 +75,55 @@ const Data_Admin = () => {
   ];
 
   // Pagination logic
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
+  useEffect(() => {
+  setCurrentPage(1);
+}, [searchNama, filterBMI, filterGula, filterTekanan, bulan, tahun]);// Pagination + Filtering (baru)
+const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 15;
+const handleSortNama = () => {
+  setSortOrder((prev) => {
+    if (prev === "asc") return "desc";
+    if (prev === "desc") return null; // klik lagi -> kembali ke default (tanpa sorting)
+    return "asc";
+  });
+};
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = dataKesehatan.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(dataKesehatan.length / itemsPerPage);
+// 1) Filter GLOBAL ke seluruh data
+let filteredData = dataKesehatan.filter((item) => {
+  const matchBMI = !filterBMI || item.status_bmi?.toLowerCase() === filterBMI;
+  const matchGula = !filterGula || item.status_gula_darah?.toLowerCase() === filterGula;
+  const matchTekanan = !filterTekanan || item.status_tekanan_darah?.toLowerCase() === filterTekanan;
+  const matchNama =
+    !searchNama ||
+    item.user?.nama?.toLowerCase().includes(searchNama.toLowerCase());
+
+  return matchBMI && matchGula && matchTekanan && matchNama;
+});
+
+// >>> Tambahkan sorting disini
+if (sortOrder === "asc") {
+  filteredData = [...filteredData].sort((a, b) =>
+    (a.user?.nama || "").localeCompare(b.user?.nama || "")
+  );
+} else if (sortOrder === "desc") {
+  filteredData = [...filteredData].sort((a, b) =>
+    (b.user?.nama || "").localeCompare(a.user?.nama || "")
+  );
+}
+
+// 2) Hitung total halaman dari data yang SUDAH difilter
+const totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
+
+// 3) Slice untuk halaman saat ini
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+// 4) Data yang dirender di tabel
+const filteredItems = currentItems;
+
+
 
   // Download Excel function
   const handleDownloadExcel = () => {
@@ -143,13 +187,6 @@ const getStatusColor = (status, category) => {
 
   return colorMap[category]?.[key] || { bg: "bg-gray-200", text: "text-gray-800" };
 };
-const filteredItems = currentItems.filter((item) => {
-  const matchBMI = filterBMI === "" || item.status_bmi?.toLowerCase() === filterBMI;
-  const matchGula = filterGula === "" || item.status_gula_darah?.toLowerCase() === filterGula;
-  const matchTekanan = filterTekanan === "" || item.status_tekanan_darah?.toLowerCase() === filterTekanan;
-
-  return matchBMI && matchGula && matchTekanan;
-});
 
   return (
     <div className="p-6 bg-WhitePPK min-h-screen w-full space-y-4 shadow-md">
@@ -257,6 +294,16 @@ const filteredItems = currentItems.filter((item) => {
     </NavLink>
   </div>
 </div>
+{/* Filter Nama */}
+<div className="w-full sm:w-auto">
+  <input
+    type="text"
+    placeholder="Ketik nama..."
+    value={searchNama}
+    onChange={(e) => setSearchNama(e.target.value)}
+    className="border rounded px-3 py-2 w-full sm:w-auto"
+  />
+</div>
 
 
 
@@ -266,7 +313,8 @@ const filteredItems = currentItems.filter((item) => {
             <tr className="bg-gray-200">
               <th className="p-2 ">No</th>
               <th className="p-2 ">Tanggal</th>
-              <th className="p-2 ">Nama</th>
+              <th className="p-2 cursor-pointer select-none"
+      onClick={handleSortNama}>Nama {sortOrder === "asc" ? " ▲" : sortOrder === "desc" ? " ▼" : " ⇅"}</th>
               <th className="p-2 ">Tinggi Badan (cm)</th>
               <th className="p-2 ">Berat Badan (Kg)</th>
               <th className="p-2 ">BMI</th>

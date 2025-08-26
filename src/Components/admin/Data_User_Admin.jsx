@@ -9,6 +9,7 @@ const Data_User_Admin = () => {
   
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [searchNama, setSearchNama] = useState(""); // 🔍 state untuk search nama
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
@@ -77,9 +78,13 @@ const Data_User_Admin = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = dataUser.slice(indexOfFirstItem, indexOfLastItem);
+const filteredData = dataUser.filter((user) =>
+  searchNama === "" ? true : user.nama?.toLowerCase().includes(searchNama.toLowerCase())
+);
 
-  const totalPages = Math.ceil(dataUser.length / itemsPerPage);
+const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
 
 const handleDownloadUserExcel = () => {
   if (dataUser.length === 0) {
@@ -139,7 +144,19 @@ const handleDownloadUserExcel = () => {
               </button>
           </NavLink>
           </div>
+          
         </div>
+        
+{/* Filter Nama */}
+<div className="w-full sm:w-auto mb-2">
+  <input
+    type="text"
+    placeholder="Ketik nama..."
+    value={searchNama}
+    onChange={(e) => setSearchNama(e.target.value)}
+    className="border rounded px-3 py-2 w-full sm:w-auto"
+  />
+</div>
     
 
 
@@ -162,9 +179,9 @@ const handleDownloadUserExcel = () => {
           </tr>
         </thead>
         <tbody>
-          {dataUser.map((user, index) => (
+          {currentItems.map((user, index) => (
             <tr key={user.id} className="border-t">
-              <td className="p-2 text-center">{index + 1}</td>
+              <td className="p-2 text-center">{indexOfFirstItem + index + 1}</td>
               <td className="p-2">{user.nik}</td>
               <td className="p-2">{user.nama}</td>
               <td className="p-2">
