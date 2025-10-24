@@ -8,35 +8,38 @@ import User from './Components/User';
 import { AuthProvider } from './AuthContext';
 import RequireAuth from './RequireAuth';
 import Login from './Login';
+import { HelmetProvider } from 'react-helmet-async';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 import "react-toastify/dist/ReactToastify.css";
 
 root.render(
   
-  <AuthProvider>
-    <Router>
-      <Routes>
-        <Route
-          path="/admin/*"
-          element={
-            <RequireAuth allowedRoles={['admin']}>
-              <Admin />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/user/*"
-          element={
-            <RequireAuth allowedRoles={['user']}>
-              <User />
-            </RequireAuth>
-          }
-        />
-        <Route path="/*" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/unauthorized" element={<UnauthorizedPage />} /> */}
-      </Routes>
-    </Router>
-  </AuthProvider>
+  <HelmetProvider>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route
+            path="/admin/*"
+            element={
+              <RequireAuth allowedRoles={['admin']}>
+                <Admin />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/user/*"
+            element={
+              <RequireAuth allowedRoles={['user']}>
+                <User />
+              </RequireAuth>
+            }
+          />
+          <Route path="/*" element={<App />} />
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/unauthorized" element={<UnauthorizedPage />} /> */}
+        </Routes>
+      </Router>
+    </AuthProvider>
+  </HelmetProvider>
   
 );

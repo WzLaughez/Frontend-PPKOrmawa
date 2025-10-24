@@ -18,7 +18,7 @@ export default function DashboardSection() {
 , once: false, easing: 'ease-out-cubic' });
     }, []);
   return (
-    <div className="relative flex flex-col items-center justify-center py-10 font-dmsans max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 bg-WhitePPK shadow-lg rounded-lg font-dmsans" data-aos="fade-up">
+    <div className="relative flex flex-col items-center justify-center py-10 font-dmsans w-full px-4 sm:px-6 lg:px-8 bg-WhitePPK dark:bg-gray-800 shadow-lg rounded-lg font-dmsans" data-aos="fade-up">
         {/* Decorative + Symbols */}
   <div className="absolute inset-0 z-0 pointer-events-none">
     <div className="absolute top-10 left-5 text-blue-100 text-4xl font-bold">+</div>
@@ -30,16 +30,14 @@ export default function DashboardSection() {
         <div className="text-center mb-10" data-aos="fade-down">
           <div className="relative inline-block" data-aos="fade-down">
             {/* Decorative Elements */}
-            <div className="absolute -top-8 -left-8 w-16 h-16 border-l-4 border-t-4 border-blue-400/30 rounded-tl-3xl"></div>
-            <div className="absolute -bottom-8 -right-8 w-16 h-16 border-r-4 border-b-4 border-yellow-400/30 rounded-br-3xl"></div>
             
-            <div className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-4 shadow-2xl border border-white/20">
+            <div className="relative bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm rounded-3xl p-4 shadow-2xl border border-white/20 dark:border-gray-600/20">
               <h2 className="text-xl md:text-3xl font-bold leading-tight mb-2">
-                <span className="bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
                   Pantau Tekanan Darah dan Gula Darah
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-cyan-600 to-blue-700 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-cyan-600 to-blue-700 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
                   Secara Mandiri
                 </span>
               </h2>
@@ -50,7 +48,7 @@ export default function DashboardSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
               </div>
               
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Monitor kesehatan Anda dengan teknologi terdepan untuk hidup yang lebih sehat
               </p>
             </div>
@@ -76,49 +74,49 @@ export default function DashboardSection() {
     
     <div className='flex  flex-col md:flex-row items-stretch gap-4' data-aos="fade-down">
         {/* Card Gula Darah */}
-        <div className="bg-white rounded-xl shadow p-5 w-[180px]">
+        <div className="bg-white dark:bg-gray-700 rounded-xl shadow p-5 w-[180px]">
           <div className="flex flex-col items-start gap-2">
             <div className="flex justify-between items-center w-full">
 
             <img src="/Group 31.svg" alt="Graph" className="w-12 h-12 " />
-            <div className="text-sm text-gray-600">Gula Darah</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">Gula Darah</div>
             </div>
-            <div className="text-2xl font-semibold text-gray-900">80 <span className="text-sm font-normal">mg / dL</span></div>
-            <div className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Normal</div>
+            <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">80 <span className="text-sm font-normal">mg / dL</span></div>
+            <div className="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded">Normal</div>
             <img src="/Group 11.svg" alt="Graph" className="w-full h-auto mt-2" />
           </div>
         </div>
 
         {/* Card Tekanan Darah */}
-        <div className="bg-white rounded-xl shadow p-5 w-[180px]">
+        <div className="bg-white dark:bg-gray-700 rounded-xl shadow p-5 w-[180px]">
           <div className="flex flex-col items-start gap-2">
             <div className="flex justify-center items-center w-full">
 
             <img src="/Group 35.svg" alt="Graph" className="w-12 h-12 mr-4" />
-            <div className="text-sm text-gray-600">Tekanan Darah</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">Tekanan Darah</div>
             </div>
-            <div className="text-2xl font-semibold text-gray-900">102 <span className="text-sm font-normal">/ 72 mmHg</span></div>
-            <div className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Normal</div>
+            <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">102 <span className="text-sm font-normal">/ 72 mmHg</span></div>
+            <div className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">Normal</div>
             <img src="/Group 30.svg" alt="Graph" className="w-full h-auto mt-2" />
           </div>
         </div>
         {/* Card BMI */}
-        <div className="bg-white rounded-xl shadow p-5 w-[180px]">
+        <div className="bg-white dark:bg-gray-700 rounded-xl shadow p-5 w-[180px]">
           <div className="flex flex-col items-start gap-2">
             <div className="flex justify-between items-center w-full">
 
             <img src="/BMI.png" alt="Graph" className="w-12 h-12 " />
-            <div className="text-sm text-gray-600">Indeks Masa Tubuh</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">Indeks Masa Tubuh</div>
             </div>
-            <div className="text-2xl font-semibold text-gray-900">102 <span className="text-sm font-normal">IMT</span></div>
-            <div className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Normal</div>
+            <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">102 <span className="text-sm font-normal">IMT</span></div>
+            <div className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">Normal</div>
             <img src="/Group 29.svg" alt="Graph" className="w-full h-auto mt-2" />
           </div>
         </div>
     </div>
       </div>
 {/* Additional Info */}
-          <div className="flex justify-center items-center space-x-6 mb-6 text-sm text-gray-600">
+          <div className="flex justify-center items-center space-x-6 mb-6 text-sm text-gray-600 dark:text-gray-300">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
               <span>Real-time Monitoring</span>

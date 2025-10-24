@@ -8,6 +8,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
+import ThemeToggle from '../Components/ThemeToggle'
 
 export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -22,10 +23,10 @@ export default function NavBar() {
   }, [])
 
   const linkClasses = ({ isActive }) =>
-    `text-md font-medium transition-colors duration-300 ${isActive ? 'text-Blue font-semibold' : 'text-gray-700 hover:text-Blue'}`
+    `text-md font-medium transition-colors duration-300 ${isActive ? 'text-Blue dark:text-Blue font-semibold' : 'text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue'}`
 
   return (
-    <header className={`fixed w-full top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white border-b-2 shadow-md' : 'bg-white'}`}>
+    <header className={`fixed w-full top-0 z-50 font-sans transition-all duration-300 ${scrolled ? 'bg-white dark:bg-gray-900 border-b-2 dark:border-gray-700 shadow-md' : 'bg-white dark:bg-gray-900'}`}>
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Kiri: Logo dan Burger (mobile) */}
         <div className="flex items-center gap-3">
@@ -33,13 +34,13 @@ export default function NavBar() {
           <div className="lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="text-gray-700 p-2 rounded-md"
+              className="text-gray-700 dark:text-gray-300 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <Bars3Icon className="h-6 w-6" />
             </button>
           </div>
           {/* Logo tampil di semua ukuran layar */}
-          <div className="text-2xl font-bold text-Blue">
+          <div className="text-2xl font-bold text-Blue dark:text-Blue">
             PrimaHealth
           </div>
         </div>
@@ -50,13 +51,14 @@ export default function NavBar() {
           {/* <NavLink to="/about" className={linkClasses}>About Us</NavLink> */}
           <NavLink to="/edukasi" className={linkClasses}>Edukasi</NavLink>
           <NavLink to="/galeri" className={linkClasses}>Galeri</NavLink>
-          <NavLink to="/tanya" className={linkClasses}>Tanya</NavLink>
+          <NavLink to="/tanya-jawab" className={linkClasses}>Tanya Jawab</NavLink>
         </div>
 
-        {/* Kanan: Tombol daftar */}
-        <div className="">
-          <NavLink to="/login" className="hidden lg:inline-block text-sm font-medium text-Blue hover:text-blue-900 transition">
-          <button className="bg-Blue text-white px-8 py-2 text-sm font-medium hover:bg-blue-900 transition">
+        {/* Kanan: Theme Toggle dan Tombol daftar */}
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <NavLink to="/login" className="hidden lg:inline-block text-sm font-medium text-Blue dark:text-Blue hover:text-blue-900 dark:hover:text-blue-300 transition">
+          <button className="bg-Blue text-white px-8 py-2 text-sm font-medium hover:bg-blue-900 dark:hover:bg-blue-700 transition">
             Login
           </button>
           </NavLink>
@@ -69,14 +71,14 @@ export default function NavBar() {
 
           {/* Slide from left */}
           <div className="fixed inset-0 flex">
-            <DialogPanel className="w-4/5 max-w-xs bg-white h-full shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0">
+            <DialogPanel className="w-4/5 max-w-xs bg-white dark:bg-gray-900 h-full shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0">
               <div className="flex flex-col h-full p-6">
                 {/* Header: Logo + Close */}
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-xl font-bold text-Blue">PrimaHealth</span>
+                  <span className="text-xl font-bold text-Blue dark:text-Blue">PrimaHealth</span>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-gray-700 hover:text-red-500 transition"
+                    className="text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition"
                   >
                     <XMarkIcon className="h-6 w-6" />
                   </button>
@@ -84,23 +86,23 @@ export default function NavBar() {
 
                 {/* Menu Items */}
                 <div className="flex flex-col space-y-4">
-                  <NavLink to="/" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  <NavLink to="/" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
                     Home
                   </NavLink>
-                  <NavLink to="/program" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  <NavLink to="/program" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
                     Program
                   </NavLink>
-                  <NavLink to="/edukasi" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  <NavLink to="/edukasi" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
                     Edukasi
                   </NavLink>
-                  {/* <NavLink to="/about" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  {/* <NavLink to="/about" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
                     About Us
                   </NavLink> */}
-                  <NavLink to="/galeri" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
+                  <NavLink to="/galeri" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
                     Galeri
                   </NavLink>
-                  <NavLink to="/comment" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 hover:text-Blue font-medium">
-                    Tanya
+                  <NavLink to="/tanya-jawab" onClick={() => setMobileMenuOpen(false)} className="text-base text-gray-700 dark:text-gray-300 hover:text-Blue dark:hover:text-Blue font-medium">
+                    Tanya Jawab
                   </NavLink>
 
                 </div>

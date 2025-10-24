@@ -122,8 +122,8 @@ const handleDownloadUserExcel = () => {
   saveAs(file, "data_pengguna.xlsx");
 };
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Data Pemeriksaan Kesehatan</h1>
+    <div className="p-6 bg-white dark:bg-gray-800 min-h-screen transition-colors duration-300">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Data Pengguna</h1>
 
       <div className="flex justify-end items-end mb-6">
 
@@ -154,64 +154,64 @@ const handleDownloadUserExcel = () => {
     placeholder="Ketik nama..."
     value={searchNama}
     onChange={(e) => setSearchNama(e.target.value)}
-    className="border rounded px-3 py-2 w-full sm:w-auto"
+    className="border border-gray-300 dark:border-gray-600 rounded px-3 py-2 w-full sm:w-auto bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
   />
 </div>
     
 
 
       <div className="overflow-x-auto">
-       <table className="min-w-full border font-dmsans text-sm">
+       <table className="min-w-full border border-gray-300 dark:border-gray-600 font-dmsans text-sm bg-white dark:bg-gray-700">
         <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2">No</th>
-            <th className="p-2">NIK</th>
-            <th className="p-2">Nama</th>
-            <th className="p-2">Tempat, Tgl Lahir</th>
-            <th className="p-2">Agama</th>
-            <th className="p-2">Alamat</th>
-            <th className="p-2">Jenis Kelamin</th>
-            <th className="p-2">RW</th>
-            <th className="p-2">RT</th>
-            <th className="p-2">No HP</th>
-            <th className="p-2">Email</th>
-            <th className="p-2">Aksi</th>
+          <tr className="bg-gray-200 dark:bg-gray-600">
+            <th className="p-2 text-gray-900 dark:text-white">No</th>
+            <th className="p-2 text-gray-900 dark:text-white">NIK</th>
+            <th className="p-2 text-gray-900 dark:text-white">Nama</th>
+            <th className="p-2 text-gray-900 dark:text-white">Tempat, Tgl Lahir</th>
+            <th className="p-2 text-gray-900 dark:text-white">Agama</th>
+            <th className="p-2 text-gray-900 dark:text-white">Alamat</th>
+            <th className="p-2 text-gray-900 dark:text-white">Jenis Kelamin</th>
+            <th className="p-2 text-gray-900 dark:text-white">RW</th>
+            <th className="p-2 text-gray-900 dark:text-white">RT</th>
+            <th className="p-2 text-gray-900 dark:text-white">No HP</th>
+            <th className="p-2 text-gray-900 dark:text-white">Email</th>
+            <th className="p-2 text-gray-900 dark:text-white">Aksi</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((user, index) => (
-            <tr key={user.id} className="border-t">
-              <td className="p-2 text-center">{indexOfFirstItem + index + 1}</td>
-              <td className="p-2">{user.nik}</td>
-              <td className="p-2">{user.nama}</td>
-              <td className="p-2">
+            <tr key={user.id} className="border-t border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200">
+              <td className="p-2 text-center text-gray-900 dark:text-white">{indexOfFirstItem + index + 1}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.nik}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.nama}</td>
+              <td className="p-2 text-gray-900 dark:text-white">
                 {user.tempat_lahir}, {user.tanggal_lahir}
               </td>
-              <td className="p-2 text-center">
+              <td className="p-2 text-center text-gray-900 dark:text-white">
                 {user.agama || "-"}
               </td>
-              <td className="p-2 text-center">
+              <td className="p-2 text-center text-gray-900 dark:text-white">
                 {user.alamat || "-"}
               </td>
-              <td className="p-2 text-center">
+              <td className="p-2 text-center text-gray-900 dark:text-white">
                 {user.jenis_kelamin || "-"}
               </td>
-              <td className="p-2">{user.rw}</td>
-              <td className="p-2">{user.rt}</td>
-              <td className="p-2">{user.no_hp}</td>
-              <td className="p-2">{user.email}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.rw}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.rt}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.no_hp}</td>
+              <td className="p-2 text-gray-900 dark:text-white">{user.email}</td>
               <td className="p-2 text-center">
                     <div className="flex gap-2">
                       <NavLink to={`/admin/pengguna/edit/${user.id}`}>
                         <button
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 dark:text-blue-400 hover:underline"
                         >
                         Edit
                         </button>
                       </NavLink>
                         <button
                         onClick={() => handleDeleteClick(user.id)}
-                        className="text-red-600 hover:underline ml-2"
+                        className="text-red-600 dark:text-red-400 hover:underline ml-2"
                         >
                         Hapus
                         </button>
@@ -225,7 +225,7 @@ const handleDownloadUserExcel = () => {
   <button
     disabled={currentPage === 1}
     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-    className="px-3 py-1 bg-gray-200 disabled:opacity-50"
+    className="px-3 py-1 bg-gray-200 dark:bg-gray-600 disabled:opacity-50 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200"
   >
     Prev
   </button>
@@ -235,7 +235,7 @@ const handleDownloadUserExcel = () => {
       <button
         key={i}
         onClick={() => setCurrentPage(i + 1)}
-        className={`px-3 py-1 ${currentPage === i + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+        className={`px-3 py-1 transition-colors duration-200 ${currentPage === i + 1 ? 'bg-blue-600 dark:bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500'}`}
       >
         {i + 1}
       </button>
@@ -245,26 +245,26 @@ const handleDownloadUserExcel = () => {
   <button
     disabled={currentPage === totalPages}
     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-    className="px-3 py-1 bg-gray-200 disabled:opacity-50"
+    className="px-3 py-1 bg-gray-200 dark:bg-gray-600 disabled:opacity-50 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200"
   >
     Next
   </button>
 </div>
 {showModal && (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Konfirmasi Hapus</h2>
-      <p className="text-sm text-gray-600">Apakah Anda yakin ingin menghapus data ini?</p>
+    <div className="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg max-w-sm w-full transition-colors duration-300">
+      <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Konfirmasi Hapus</h2>
+      <p className="text-sm text-gray-600 dark:text-gray-300">Apakah Anda yakin ingin menghapus data ini?</p>
       <div className="flex justify-end gap-2 mt-6">
         <button
           onClick={() => setShowModal(false)}
-          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          className="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white transition-colors duration-200"
         >
           Batal
         </button>
         <button
           onClick={confirmDelete}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          className="px-4 py-2 bg-red-600 dark:bg-red-500 text-white rounded hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
         >
           Hapus
         </button>

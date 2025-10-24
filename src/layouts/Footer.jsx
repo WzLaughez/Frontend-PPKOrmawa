@@ -18,11 +18,11 @@ const Footer = () => {
 
   return (
     <footer className="bg-Aqua/20 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 px-6 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
 
         {/* Logo & Info */}
         <div>
-          <img src="/Logo_Hijau.png" alt="Logo BEM FK" className="h-14 mb-4" />
+          <img src="/Logo_Hijau.png" alt="Logo PrimaHealth FK UM - Platform kesehatan mahasiswa" className="h-14 mb-4" loading="lazy" />
           <h3 className="text-lg font-semibold mb-1">BEM FK Universitas Negeri Malang</h3>
           <p className="text-sm text-neutral-500">Badan Eksekutif Mahasiswa</p>
 
@@ -41,6 +41,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
 
         {/* Embedded Map */}
         <div>

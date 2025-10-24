@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../lib/axios';
+import SEO from './SEO';
 
 const Galeri = () => {
   const [galeri, setGaleri] = useState([]);
@@ -27,8 +28,30 @@ const Galeri = () => {
     );
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Galeri PrimaHealth",
+    "description": "Koleksi foto kegiatan kesehatan dan edukasi PrimaHealth FK UM",
+    "url": "https://primahealth.my.id/galeri",
+    "image": galeri.map(item => ({
+      "@type": "ImageObject",
+      "url": `${API}${item.image_url}`,
+      "name": item.nama,
+      "description": item.deskripsi
+    }))
+  };
+
   return (
-    <div className="container mx-auto px-4 py-16 mt-16 max-w-6xl ">
+    <>
+      <SEO 
+        title="Galeri Kegiatan Kesehatan"
+        description="Lihat koleksi foto kegiatan kesehatan, edukasi, dan program PrimaHealth FK Universitas Negeri Malang."
+        keywords="galeri kesehatan, foto kegiatan kesehatan, PrimaHealth galeri, FK UM galeri, kegiatan mahasiswa kesehatan"
+        url="/galeri"
+        structuredData={structuredData}
+      />
+      <div className="container mx-auto px-4 py-16 mt-16 max-w-6xl ">
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
         {galeri.map((item) => (
@@ -50,6 +73,7 @@ const Galeri = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

@@ -11,13 +11,13 @@ const Card = ({ title, value }) => {
   const { icon, bg, text } = iconMap[title] || {};
 
   return (
-    <div className="bg-white shadow p-4 flex items-center space-x-4">
+    <div className="bg-white dark:bg-gray-700 shadow p-4 flex items-center space-x-4 rounded-lg transition-colors duration-300">
       <div className={`w-12 h-12 flex items-center justify-center rounded-full ${bg} ${text} text-xl`}>
         {icon}
       </div>
       <div>
-        <h2 className="text-sm font-medium text-gray-500">{title}</h2>
-        <p className="text-xl font-bold text-gray-800">{value}</p>
+        <h2 className="text-sm font-medium text-gray-500 dark:text-gray-300">{title}</h2>
+        <p className="text-xl font-bold text-gray-800 dark:text-white">{value}</p>
       </div>
     </div>
   );

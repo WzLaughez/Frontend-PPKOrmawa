@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
 import axiosInstance from '../lib/axios'
+import SEO from './SEO'
 const Pengumuman = () => {
   const [pengumuman, setPengumuman] = useState([])
   const [loading, setLoading] = useState(true);
@@ -26,8 +27,43 @@ const Pengumuman = () => {
   )
 }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Edukasi Kesehatan PrimaHealth",
+    "description": "Kumpulan artikel dan materi edukasi kesehatan untuk mahasiswa FK UM",
+    "url": "https://primahealth.my.id/edukasi",
+    "itemListElement": pengumuman.map((item, index) => ({
+      "@type": "Article",
+      "position": index + 1,
+      "name": item.title,
+      "description": item.description,
+      "url": `https://primahealth.my.id/edukasi/${item.id}`,
+      "image": `${API}${item.image_url}`,
+      "author": {
+        "@type": "Organization",
+        "name": "PrimaHealth FK UM"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PrimaHealth FK UM",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://primahealth.my.id/Logo_Hijau.png"
+        }
+      }
+    }))
+  };
+
   return (
     <>
+      <SEO 
+        title="Edukasi Kesehatan"
+        description="Temukan artikel dan materi edukasi kesehatan terbaru dari PrimaHealth FK UM. Informasi kesehatan terkini untuk mahasiswa kedokteran."
+        keywords="edukasi kesehatan, artikel kesehatan, materi kesehatan, PrimaHealth edukasi, FK UM edukasi, kesehatan mahasiswa"
+        url="/edukasi"
+        structuredData={structuredData}
+      />
       <div className="container mx-auto px-4 py-16 mt-16 max-w-6xl">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
   {pengumuman.map((item) => (
@@ -48,6 +84,7 @@ const Pengumuman = () => {
     </>
   )
 }
+
 const ArticleCard = ({ id, title, description, image }) => {
   return (
     <div className="group cursor-pointer">

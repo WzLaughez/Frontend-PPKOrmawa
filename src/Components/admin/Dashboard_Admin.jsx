@@ -83,9 +83,9 @@ const Dashboard_Admin = () => {
   });
 
   return (
-    <div className="bg-WhitePPK p-6 min-h-screen w-full space-y-4 shadow-md">
+    <div className="bg-white dark:bg-gray-800 p-6 min-h-screen w-full space-y-4 shadow-md transition-colors duration-300">
 
-      <h1 className="text-2xl font-semibold mb-4">Dashboard Admin Kesehatan</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Dashboard Admin Kesehatan</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -98,20 +98,16 @@ const Dashboard_Admin = () => {
       {/* Grid for Bar + Pie Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Bar Chart Box */}
-        <div className="bg-white p-4 shadow">
-          <h2 className="text-lg font-semibold mb-2">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
-          <div className="h-48">
-            <Bar data={barChartData} options={barChartOptions} />
-          </div>
-          <h2 className="text-lg font-semibold mb-2">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
+        <div className="bg-white dark:bg-gray-700 p-4 shadow rounded-lg transition-colors duration-300">
+          <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Riwayat Pemeriksaan per Bulan Tahun {data.currentYear}</h2>
           <div className="h-48">
             <Bar data={barChartData} options={barChartOptions} />
           </div>
         </div>
 
         {/* Pie Charts Box */}
-        <div className="bg-white p-4 shadow">
-          <h2 className="text-lg font-semibold mb-4 text-center">Status Kesehatan Bulan Ini</h2>
+        <div className="bg-white dark:bg-gray-700 p-4 shadow rounded-lg transition-colors duration-300">
+          <h2 className="text-lg font-semibold mb-4 text-center text-gray-900 dark:text-white">Status Kesehatan Bulan Ini</h2>
           <div className="flex flex-wrap justify-center gap-4">
             <div className="w-1/2 sm:w-1/3 flex justify-center">
               <SmallPie title="Distribusi IMT" chartData={pieChart(data.statusBMI)} />
@@ -143,13 +139,13 @@ const Dashboard_Admin = () => {
 
 const SmallPie = ({ title, chartData }) => (
   <div className="flex flex-col items-center text-center">
-    <p className="text-sm font-dmsans mb-1">{title}</p>
+    <p className="text-sm font-dmsans mb-1 text-gray-900 dark:text-white">{title}</p>
     <div className="w-32 h-32">
       <Doughnut data={chartData} options={{ plugins: { legend: { display: false }}}} />
     </div>
     <div className="flex flex-wrap justify-center gap-1 mt-2 text-xs">
       {chartData.labels.map((label, i) => (
-        <span key={i} className="flex items-center gap-1 text-gray-600 font-dmsans ml-1">
+        <span key={i} className="flex items-center gap-1 text-gray-600 dark:text-gray-300 font-dmsans ml-1">
           <span 
             className="w-3 h-3 inline-block rounded-full" 
             style={{ backgroundColor: chartData.datasets[0].backgroundColor[i] }}

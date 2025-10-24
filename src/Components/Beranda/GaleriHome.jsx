@@ -54,7 +54,7 @@ const GaleriHome = () => {
             
             <div className="relative  backdrop-blur-sm rounded-3xl p-4  max-w-4xl">
               <h2 className="text-xl md:text-3xl font-bold  leading-tight ">
-                <span className="text-Blue">Galeri PrimaHealth </span>
+                <span className="text-Blue dark:text-blue-400">Galeri PrimaHealth </span>
                 </h2>
               
               
@@ -63,8 +63,8 @@ const GaleriHome = () => {
         </header>
 
       {/* Main Content */}
-      <div className="relative px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-        <div className="max-w-6xl mx-auto">
+      <div className="relative px-4 sm:px-6 lg:px-8 py-6 sm:py-10 w-full">
+        <div className="max-w-7xl mx-auto">
           {loading ? (
   <div className="text-center py-10">
     <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />

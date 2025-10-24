@@ -11,7 +11,7 @@ const VisiMisi = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-WhitePPK via-blue-50 to-emerald-50 overflow-hidden font-dmsans" data-aos="fade-up">
+    <div className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-WhitePPK via-blue-50 to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 overflow-hidden font-dmsans" data-aos="fade-up">
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -59,9 +59,9 @@ const VisiMisi = () => {
             <div className="absolute -top-8 -left-8 w-16 h-16 border-l-4 border-t-4 border-blue-400/30"></div>
             <div className="absolute -bottom-8 -right-8 w-16 h-16 border-r-4 border-b-4 border-emerald-400/30"></div>
             
-            <div className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="relative bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20 dark:border-gray-700/20">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-emerald-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-emerald-600 dark:from-blue-400 dark:via-blue-500 dark:to-emerald-400 bg-clip-text text-transparent">
                   Selamat Datang di PRIMA HEALTH
                 </span>
               </h2>
@@ -72,7 +72,7 @@ const VisiMisi = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full animate-pulse"></div>
               </div>
               
-              <p className="text-lg md:text-xl text-gray-700 max-w-3xl font-semibold mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl font-semibold mx-auto leading-relaxed">
                 Digitalisasi Terpadu Desa Pandansari Lor
               </p>
               
@@ -91,7 +91,7 @@ const VisiMisi = () => {
           {/* Image Container */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 transform group-hover:scale-105"></div>
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/30 group-hover:shadow-3xl transition-all duration-500">
+            <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/30 dark:border-gray-700/30 group-hover:shadow-3xl transition-all duration-500">
               {/* Decorative Corner Elements */}
               <div className="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-blue-500/50 rounded-tl-3xl"></div>
               <div className="absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 border-emerald-500/50 rounded-br-3xl"></div>
@@ -100,15 +100,16 @@ const VisiMisi = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-emerald-600/10 z-10"></div>
                 <img 
                   src="/balai.jpg"
-                  alt="Healthcare Building" 
+                  alt="Gedung Fakultas Kedokteran Universitas Negeri Malang - Tempat kegiatan kesehatan PrimaHealth" 
                   className="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  loading="lazy"
                 />
                 
                 {/* Image Overlay Effects */}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent z-20"></div>
                 <div className="absolute bottom-4 left-4 z-30">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
-                    <span className="text-sm font-semibold text-gray-800">Prima Health Center</span>
+                  <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
+                    <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">Prima Health Center</span>
                   </div>
                 </div>
               </div>
@@ -119,7 +120,7 @@ const VisiMisi = () => {
           <div className="text-center lg:text-left space-y-6">
             <div className="relative">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 relative">
-                <span className="bg-gradient-to-r from-gray-800 via-blue-800 to-emerald-800 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gray-800 dark:from-gray-200 via-blue-800 dark:via-blue-200 to-emerald-800 dark:to-emerald-200 bg-clip-text text-transparent">
                   Latar Belakang
                 </span>
                 {/* Decorative Accent */}
@@ -127,22 +128,22 @@ const VisiMisi = () => {
               </h2>
             </div>
             
-            <div className="relative bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20">
-              <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+            <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20 dark:border-gray-700/20">
+              <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed mb-6">
                 Penyakit Tidak Menular (PTM) seperti hipertensi dan diabetes kini menjadi ancaman utama kesehatan nasional dan global.
-                Di Indonesia, <span className="font-bold text-red-600">73% kematian disebabkan oleh PTM</span> (KEMENKES, 2023), angka ini bahkan lebih tinggi dari rata-rata global (71%).
+                Di Indonesia, <span className="font-bold text-red-600 dark:text-red-400">73% kematian disebabkan oleh PTM</span> (KEMENKES, 2023), angka ini bahkan lebih tinggi dari rata-rata global (71%).
                 Hipertensi dan diabetes menjadi perhatian utama karena prevalensinya yang tinggi serta komplikasi serius seperti stroke, penyakit jantung, dan gagal ginjal.
               </p>
               
               {/* Statistics Cards */}
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4 border border-red-200">
-                  <div className="text-2xl font-bold text-red-600">73%</div>
-                  <div className="text-sm text-red-700">Kematian PTM di Indonesia</div>
+                <div className="bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl p-4 border border-red-200 dark:border-red-700">
+                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">73%</div>
+                  <div className="text-sm text-red-700 dark:text-red-300">Kematian PTM di Indonesia</div>
                 </div>
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
-                  <div className="text-2xl font-bold text-blue-600">71%</div>
-                  <div className="text-sm text-blue-700">Rata-rata Global</div>
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl p-4 border border-blue-200 dark:border-blue-700">
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">71%</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-300">Rata-rata Global</div>
                 </div>
               </div>
               

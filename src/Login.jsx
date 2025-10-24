@@ -40,10 +40,10 @@ const Login = () => {
 };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="absolute top-6 left-6 text-3xl font-bold text-[#005b94]">PrimaHealth</div>
-      
-      <div className="bg-white shadow-lg w-full max-w-md p-10 border rounded-md z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="absolute top-6 left-6 text-3xl font-bold text-[#005b94] dark:text-blue-400">PrimaHealth</div>
+
+      <div className="bg-white dark:bg-gray-800 shadow-lg w-full max-w-md p-10 border dark:border-gray-700 rounded-md z-10">
         <h2 className="text-2xl font-bold text-center mb-2">Log In to PrimaHealth</h2>
         <p className="text-center text-gray-500 text-sm mb-6">
           Quick & Simple way to Automate your payment

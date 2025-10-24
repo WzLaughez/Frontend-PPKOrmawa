@@ -1,48 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-const questions = [
-  {
-    id: 1,
-    avatar: 'M',
-    avatarColor: 'bg-purple-700',
-    question: 'Obat Apa untuk mengatasi badan lemas dan pusing?',
-    user: 'M**at',
-    doctor: 'dr. Septiana Nurhaliza',
-    answer: 'Dok, belakangan ini saya sering merasa badan lemas dan pusing, terutama setelah beraktivitas atau di tengah hari. saya ......',
-  },
-  {
-    id: 2,
-    avatar: 'h',
-    avatarColor: 'bg-pink-500',
-    question: 'Apa yang menyebabkan dada sakit?',
-    user: 'Ha**a',
-    doctor: 'dr. Angelica',
-    answer: 'Jadi gini dok, saya mulai merasa sakit di dada sebelah kanan bawah, tepatnya di area sekitar tulang rusuk. Rasa sakitnya...',
-  },
-];
+import FooterQuestionForm from '../TanyaJawab/FooterQuestionForm';
+import SimpleQACard from '../TanyaJawab/SimpleQACard';
+import { tanyaJawabService } from '../../lib/tanyaJawabService';
+import { FaArrowRight } from 'react-icons/fa';
 
 const Comment = () => {
-    useEffect(() => {
-        AOS.init({
-        duration: 1200,
-        once: false,
-        easing: 'ease-out-cubic',
-        });
-    }, []);
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+      once: false,
+      easing: 'ease-out-cubic',
+    });
+    fetchQuestions();
+  }, []);
+
+  const fetchQuestions = async () => {
+    try {
+      setLoading(true);
+      const data = await tanyaJawabService.getAllPublic();
+      // Filter only answered questions and limit to 2
+      const answeredQuestions = data.filter(q => q.status === 'answered' && q.jawaban).slice(0, 2);
+      setQuestions(answeredQuestions);
+      setError(null);
+    } catch (err) {
+      setError('Gagal memuat pertanyaan');
+      console.error('Error fetching questions:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     
-    <div className="items-center px-6 py-12 md:flex-row md:justify-between bg-white max-w-6xl mx-auto rounded-lg shadow-lg gap-8 mb-6" data-aos="fade-down">
+    <div className="items-center px-6 py-12 md:flex-row md:justify-between bg-white dark:bg-gray-800 max-w-7xl mx-auto rounded-lg shadow-lg gap-8 mb-6" data-aos="fade-down">
         {/* Header Section */}
       <div className="relative z-10 pt-5 pb-8" >
-        <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 text-center">
+        <div className="w-full px-2 sm:px-6 lg:px-8 text-center">
           <div className="inline-block">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-[#004D7A] ">
-              <span className="text-Blue">
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-[#004D7A] dark:text-blue-400">
+              <span className="text-Blue dark:text-blue-400">
                 PrimaHealth Menjawab
               </span>
             </h2>
-            <p className="text-sm text-gray-800 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm text-gray-800 dark:text-gray-200 max-w-3xl mx-auto leading-relaxed">
               Punya pertanyaan seputar kesehatan?
             </p>
           </div>
@@ -50,35 +56,43 @@ const Comment = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 w-full md:w-auto items-stretch mb-4">
-  {questions.map((q) => (
-    <div key={q.id} className="max-w-sm w-full bg-white shadow rounded-lg p-4 h-full flex flex-col">
-      <div className="flex gap-4 items-start">
-        <div
-          className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold uppercase ${q.avatarColor}`}
-        >
-          {q.avatar}
-        </div>
-        <div className="flex-1 flex flex-col">
-          <h3 className="text-lg font-semibold">{q.question}</h3>
-          <p className="text-sm text-gray-500">Oleh : {q.user}</p>
-          <p className="text-sm text-sky-700 mt-1">Dijawab oleh {q.doctor}</p>
-          <p className="text-sm text-gray-700 mt-2 line-clamp-2">{q.answer}</p>
-          <div className="mt-auto pt-2">
-            <a href="#" className="text-sm text-sky-700 font-semibold inline-block">
-              Selengkapnya →
-            </a>
-          </div>
+        <FooterQuestionForm/>
+        
+        {/* Questions Display */}
+        <div className="flex-1">
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-green-600"></div>
+              <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">Memuat pertanyaan...</span>
+            </div>
+          ) : error ? (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+              <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+            </div>
+          ) : questions.length > 0 ? (
+            <div className="space-y-4">
+              {questions.map((q) => (
+                <div key={q.id} data-aos="fade-up">
+                  <SimpleQACard question={q} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-sm text-gray-500 dark:text-gray-400">Belum ada pertanyaan yang dijawab</p>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  ))}
-</div>
-
-
       <div className="mt-10 md:mt-0 flex items-center justify-center">
-        <button className="bg-sky-800 text-white px-6 py-3 rounded-md font-medium shadow-md hover:bg-sky-700 transition">
-          TANYA SEKARANG!
-        </button>
+        <Link to="/tanya-jawab">
+          <button className="bg-sky-800 dark:bg-sky-700 text-white px-6 py-3 rounded-md font-medium shadow-md hover:bg-sky-700 dark:hover:bg-sky-600 transition">
+          <div className="flex items-center gap-2"> 
+          <span>Lihat Semua Pertanyaan</span>
+          <FaArrowRight />
+          </div>
+          </button>
+        </Link>
       </div>
     </div>
   );

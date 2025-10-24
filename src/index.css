@@ -3,3 +3,70 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark mode base styles */
+@layer base {
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Raleway', 'DM Sans', sans-serif;
+  }
+
+  html.dark body {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  /* Ensure proper font rendering in dark mode */
+  html.dark {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Dark mode text color adjustments */
+  html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+    color: #f9fafb;
+  }
+
+  html.dark p {
+    color: #d1d5db;
+  }
+
+  html.dark .text-gray-600 {
+    color: #9ca3af;
+  }
+
+  html.dark .text-gray-700 {
+    color: #d1d5db;
+  }
+
+  html.dark .text-gray-800 {
+    color: #f3f4f6;
+  }
+}
+
+/* Custom scrollbar for dark mode */
+html.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #555555;
+  border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}
+

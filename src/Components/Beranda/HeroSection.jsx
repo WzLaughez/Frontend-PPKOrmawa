@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="relative w-full font-dmsans min-h-screen flex items-center justify-center bg-white"
+      className="relative w-full font-dmsans min-h-screen flex items-center justify-center bg-white dark:bg-gray-900"
       data-aos="fade-down"
     >
       {/* Animated Background Elements */}
@@ -58,7 +58,7 @@ const HeroSection = () => {
           alt="Background"
           className="w-full h-full object-cover blur-sm opacity-60"
         />
-        <div className="absolute inset-0 bg-[#F0F7FD]/80 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-[#F0F7FD]/80 dark:bg-gray-900/80 backdrop-blur-sm"></div>
       </div>
 
       {/* Content Section */}
@@ -66,10 +66,10 @@ const HeroSection = () => {
         
         {/* Text Content */}
         <div className="text-center md:text-left max-w-xl space-y-6">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#005689] leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#005689] dark:text-blue-400 leading-tight">
             Digitalisasi Terpadu Desa <br /> Pandansari Lor
           </h1>
-          <p className="text-base md:text-lg text-[#007cb8]">
+          <p className="text-base md:text-lg text-[#007cb8] dark:text-blue-300">
             Meningkatkan Kesehatan Masyarakat melalui Edukasi, Skrining, dan Pemantauan Berkelanjutan
           </p>
           {/* Feature Icons */}
@@ -80,7 +80,7 @@ const HeroSection = () => {
                     <path d="M12,3L1,9L12,15L21,9V16H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/>
                   </svg>
                 </div>
-                <span className="text-xs text-blue-600 font-medium">Edukasi</span>
+                <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">Edukasi</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
                 <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
@@ -88,7 +88,7 @@ const HeroSection = () => {
                     <path d="M10,4H14V2H10V4M9,9V4H11V7H13V4H15V9H13V8H11V9H9M7.5,12A2.5,2.5 0 0,0 5,14.5A2.5,2.5 0 0,0 7.5,17A2.5,2.5 0 0,0 10,14.5A2.5,2.5 0 0,0 7.5,12M16.5,12A2.5,2.5 0 0,0 14,14.5A2.5,2.5 0 0,0 16.5,17A2.5,2.5 0 0,0 19,14.5A2.5,2.5 0 0,0 16.5,12Z"/>
                   </svg>
                 </div>
-                <span className="text-xs text-cyan-600 font-medium">Skrining</span>
+                <span className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">Skrining</span>
               </div>
               <div className="flex flex-col items-center space-y-1">
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
@@ -96,16 +96,16 @@ const HeroSection = () => {
                     <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
                   </svg>
                 </div>
-                <span className="text-xs text-blue-600 font-medium">Monitor</span>
+                <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">Monitor</span>
               </div>
             </div>
           <Link to="/login" className="inline-block">
-          <button className="bg-[#F6C667] hover:bg-[#e5b353] text-[#005689] font-semibold py-3 px-6 rounded-xl shadow-lg transition duration-300">
+          <button className="bg-[#F6C667] hover:bg-[#e5b353] dark:bg-yellow-500 dark:hover:bg-yellow-600 text-[#005689] dark:text-gray-900 font-semibold py-3 px-6 rounded-xl shadow-lg transition duration-300">
             Daftar Sekarang
           </button>
           </Link>
           {/* Trust Indicators */}
-          <div className="flex justify-center md:justify-start items-center space-x-6 text-sm text-blue-600/70">
+          <div className="flex justify-center md:justify-start items-center space-x-6 text-sm text-blue-600/70 dark:text-blue-400/70">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
               <span>Platform Terpercaya</span>

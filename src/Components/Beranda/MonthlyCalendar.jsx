@@ -76,7 +76,7 @@ const MonthlyCalendar = () => {
       cells.push(
         <div
           key={`prev-${i}`}
-          className="p-3 min-h-[100px] text-gray-300 bg-gray-50/50 rounded-xl"
+          className="p-3 min-h-[100px] text-gray-300 dark:text-gray-600 bg-gray-50/50 dark:bg-gray-800/50 rounded-xl"
         >
           <div className="text-sm opacity-50">
             {new Date(currentDate.getFullYear(), currentDate.getMonth(), -(firstDay - i - 1)).getDate()}
@@ -97,8 +97,8 @@ const MonthlyCalendar = () => {
         <div
           key={day}
           className={`relative p-1 min-h-[100px] rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer
-            ${isWeekend ? 'bg-gradient-to-br from-blue-50 to-cyan-50' : 'bg-white'}
-            ${isToday ? 'ring-2 ring-orange-400 shadow-lg' : 'border border-gray-100'}
+            ${isWeekend ? 'bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20' : 'bg-white dark:bg-gray-800'}
+            ${isToday ? 'ring-2 ring-orange-400 dark:ring-orange-300 shadow-lg' : 'border border-gray-100 dark:border-gray-700'}
           `}
         >
           {/* Date Number */}
@@ -108,7 +108,7 @@ const MonthlyCalendar = () => {
                 ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg' 
                 : isWeekend 
                   ? 'text-blue-600' 
-                  : 'text-gray-700'
+                  : 'text-gray-700 dark:text-gray-300'
               }
             `}
           >
@@ -153,7 +153,7 @@ const MonthlyCalendar = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 py-12 px-4" data-aos="fade-up">
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 py-12 px-4" data-aos="fade-up">
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating Orbs */}
@@ -182,9 +182,9 @@ const MonthlyCalendar = () => {
             <div className="absolute -top-6 -left-6 w-12 h-12 border-l-4 border-t-4 border-blue-400/30 rounded-tl-2xl"></div>
             <div className="absolute -bottom-6 -right-6 w-12 h-12 border-r-4 border-b-4 border-cyan-400/30 rounded-br-2xl"></div>
             
-            <div className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="relative bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20 dark:border-gray-700/20">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 dark:from-blue-400 dark:via-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">
                   Jadwal Kegiatan di PRIMA HEALTH
                 </span>
               </h2>
@@ -195,7 +195,7 @@ const MonthlyCalendar = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
               </div>
               
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-600 dark:text-gray-400">
                 Pantau jadwal kegiatan kesehatan terbaru di desa Anda
               </p>
             </div>
@@ -203,7 +203,7 @@ const MonthlyCalendar = () => {
         </div>
 
         {/* Calendar Container */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/30 p-8" data-aos="fade-up">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/30 dark:border-gray-700/30 p-8" data-aos="fade-up">
           
           {/* Calendar Navigation */}
           <div className="flex justify-between items-center mb-8">
@@ -217,12 +217,12 @@ const MonthlyCalendar = () => {
             </button>
             
             <div className="text-center">
-              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-700 dark:from-gray-300 to-gray-900 dark:to-gray-100 bg-clip-text text-transparent">
                 {getCurrentMonthName(currentDate)}
               </h2>
               <div className="flex items-center justify-center space-x-2 mt-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-gray-500">Klik tanggal untuk melihat detail</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">Klik tanggal untuk melihat detail</span>
                 <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
               </div>
             </div>

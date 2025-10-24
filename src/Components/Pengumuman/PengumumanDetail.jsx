@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axiosInstance from '../../lib/axios';
+import SEO from '../SEO';
 
 function PengumumanDetail() {
   const { id } = useParams(); // ID dari URL
@@ -31,8 +32,40 @@ function PengumumanDetail() {
     return <p className="text-center text-red-500 mt-12">{error || 'Pengumuman tidak ditemukan.'}</p>;
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": pengumuman.title,
+    "description": pengumuman.description,
+    "image": `${API}${pengumuman.image_url}`,
+    "url": `https://primahealth.my.id/edukasi/${pengumuman.id}`,
+    "author": {
+      "@type": "Organization",
+      "name": "PrimaHealth FK UM"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PrimaHealth FK UM",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://primahealth.my.id/Logo_Hijau.png"
+      }
+    },
+    "datePublished": pengumuman.createdAt,
+    "dateModified": pengumuman.updatedAt
+  };
+
   return (
     <>
+      <SEO 
+        title={pengumuman.title}
+        description={pengumuman.description}
+        keywords={`${pengumuman.title}, edukasi kesehatan, PrimaHealth, FK UM, artikel kesehatan`}
+        url={`/edukasi/${pengumuman.id}`}
+        image={`${API}${pengumuman.image_url}`}
+        type="article"
+        structuredData={structuredData}
+      />
       <div className="mx-auto px-4 pt-24 bg-WhitePPK">
         <div className="max-w-5xl mx-auto">
           <div className="mb-6">

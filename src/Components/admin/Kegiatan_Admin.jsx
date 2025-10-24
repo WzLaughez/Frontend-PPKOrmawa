@@ -81,12 +81,12 @@ const confirmDelete = async () => {
   }, []);
 
   return (
-    <div className="p-6 mx-auto bg-WhitePPK min-h-screen">
+    <div className="p-6 mx-auto bg-white dark:bg-gray-800 min-h-screen transition-colors duration-300">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Manajemen Kegiatan</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Manajemen Kegiatan</h2>
       </div>
         <div className="mb-4 flex justify-end">
-            <button className="flex items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow" onClick={handleOpenAdd}>
+            <button className="flex items-center px-4 py-2 bg-Blue text-white text-sm hover:bg-Aqua shadow transition-colors duration-200" onClick={handleOpenAdd}>
                 <FaPlus className="inline mr-2" />
                   Tambah Kegiatan
             </button>
@@ -97,23 +97,23 @@ const confirmDelete = async () => {
   {paginatedData.map((item) => (
     <div
       key={item.id}
-      className="p-4 bg-white rounded shadow flex justify-between items-center"
+      className="p-4 bg-white dark:bg-gray-700 rounded shadow flex justify-between items-center transition-colors duration-300"
     >
       <div>
-        <h3 className="font-semibold text-lg">{item.title}</h3>
-        <p className="text-gray-600 text-sm">{item.description}</p>
-        <p className="text-sm text-gray-500 mt-1">Tanggal: {item.date}</p>
+        <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{item.title}</h3>
+        <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Tanggal: {item.date}</p>
       </div>
       <div className="flex gap-2">
         <button
           onClick={() => handleEdit(item)}
-          className="px-3 py-1 text-sm bg-yellow-400 text-white rounded hover:bg-yellow-500"
+          className="px-3 py-1 text-sm bg-yellow-400 dark:bg-yellow-500 text-white rounded hover:bg-yellow-500 dark:hover:bg-yellow-600 transition-colors duration-200"
         >
           Edit
         </button>
         <button
           onClick={() => handleDelete(item.id)}
-          className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+          className="px-3 py-1 text-sm bg-red-600 dark:bg-red-500 text-white rounded hover:bg-red-700 dark:hover:bg-red-600 transition-colors duration-200"
         >
           Hapus
         </button>
@@ -125,19 +125,19 @@ const confirmDelete = async () => {
   <button
     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
     disabled={currentPage === 1}
-    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+    className="px-3 py-1 bg-gray-200 dark:bg-gray-600 rounded disabled:opacity-50 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200"
   >
     Sebelumnya
   </button>
 
-  <span className="px-3 py-1 text-gray-700">
+  <span className="px-3 py-1 text-gray-700 dark:text-gray-300">
     Halaman {currentPage} dari {totalPages}
   </span>
 
   <button
     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
     disabled={currentPage === totalPages}
-    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+    className="px-3 py-1 bg-gray-200 dark:bg-gray-600 rounded disabled:opacity-50 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200"
   >
     Berikutnya
   </button>

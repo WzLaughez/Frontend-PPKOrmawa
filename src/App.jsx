@@ -16,6 +16,8 @@ import About from './Components/About'
 import SubGaleri from './Components/Galeri/SubGaleri'
 import Foto from './Components/Galeri/Foto'
 import KaryaDetail from './Components/Karya/KaryaDetail'
+import TanyaJawab from './Components/TanyaJawab/TanyaJawab'
+import { DarkModeProvider } from './DarkModeContext'
 AOS.init({
   once: false,
 });
@@ -44,13 +46,14 @@ function AppRoutes() {
       <Route path="/karya/:id" element={<KaryaDetail key={location.pathname} />} />
       <Route path="/edukasi" element={<Pengumuman key={location.pathname} />} />
       <Route path="/edukasi/:id" element={<PengumumanDetail key={location.pathname} />} />
+      <Route path="/tanya-jawab" element={<TanyaJawab key={location.pathname} />} />
     </Routes>
   )
 }
 function App() {
 
   return (
-    <>
+    <DarkModeProvider>
       <div className="App">
       <ScrollToTop/>
         <Navbar/>
@@ -58,7 +61,7 @@ function App() {
         <Footer/>
         <ScrollToTopButton/>
       </div>
-    </>
+    </DarkModeProvider>
   )
 }
 
